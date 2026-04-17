@@ -437,7 +437,8 @@
     "comparison_slider": "Comparison slider",
     "custom_announcement_bar": "Custom announcement bar",
     "custom_header": "Custom header",
-    "custom_subheader": "Custom subheader"
+    "custom_subheader": "Custom subheader",
+    "image_banner": "Image banner"
   },
   "options": {
     "above_carousel": "Above carousel",
@@ -1187,7 +1188,10 @@
     "enable_sticky": "Sticky header",
     "center_text": "Center text",
     "promo_text": "Promo text",
-    "promo_link": "Promo link"
+    "promo_link": "Promo link",
+    "desktop_image": "Desktop image",
+    "mobile_image": "Mobile image",
+    "image_alt": "Image alt text"
   },
   "text_defaults": {
     "accordion_heading": "Accordion heading",
