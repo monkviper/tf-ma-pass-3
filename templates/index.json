@@ -534,11 +534,91 @@
         "padding-block-start": 64,
         "padding-block-end": 64
       }
+    },
+    "shop_by_brand": {
+      "type": "shop-by-brand",
+      "settings": {
+        "heading": "Shop by Brand",
+        "view_all_text": "View All",
+        "columns": 6,
+        "columns_gap": 16,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": {
+        "brand_isotonix": {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "isotonix-logo-black-1-2.svg",
+            "brand_name": "Isotonix",
+            "description": "Vitamins with maximum absorption"
+          }
+        },
+        "brand_prime": {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "prime-logo-2.svg",
+            "brand_name": "Prime",
+            "description": "Anti-Aging Nutraceuticsl"
+          }
+        },
+        "brand_lumiere": {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "ldv-usca-au-gb-es-hk-tw-sg-logo-1-2.svg",
+            "brand_name": "Lumiere de Vie",
+            "description": "Skin care products for men and women."
+          }
+        },
+        "brand_gotrim": {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "",
+            "brand_name": "GoTrim",
+            "description": "Sustainable weight loss & vibrant lifestyle"
+          }
+        },
+        "brand_layered": {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "layered-logo-1-2.svg",
+            "brand_name": "Layered",
+            "description": "Anti-Aging Nutraceuticsl"
+          }
+        },
+        "brand_vita_shield": {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "",
+            "brand_name": "Vita Shield",
+            "description": "Therapy treatments to promote younger-looking skin"
+          }
+        },
+        "brand_motives": {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "motives-logo-black-1.svg",
+            "brand_name": "Motives",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_isotonix",
+        "brand_prime",
+        "brand_lumiere",
+        "brand_gotrim",
+        "brand_layered",
+        "brand_vita_shield",
+        "brand_motives"
+      ]
     }
   },
   "order": [
     "slideshow_hero",
     "image_banner_6Pr6ik",
-    "shop_by_category"
+    "shop_by_category",
+    "shop_by_brand"
   ]
 }

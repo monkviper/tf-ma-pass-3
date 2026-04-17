@@ -1,0 +1,651 @@
+{%- liquid
+  assign section_id = section.id
+  assign columns = section.settings.columns
+  assign columns_gap = section.settings.columns_gap
+  assign brand_blocks = section.blocks
+  assign blocks_size = brand_blocks.size
+-%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="
+    section
+    section--page-width
+    color-{{ section.settings.color_scheme }}
+    shop-by-brand
+    spacing-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    --shop-by-brand-columns: {{ columns }};
+    --shop-by-brand-gap: {{ columns_gap }}px;
+  "
+  data-testid="shop-by-brand-section"
+>
+  {%- comment -%} Desktop header with arrows {%- endcomment -%}
+  <div class="shop-by-brand__header">
+    <h2 class="shop-by-brand__heading">{{ section.settings.heading | escape }}</h2>
+
+    <div class="shop-by-brand__header-actions">
+      <div class="shop-by-brand__arrows-wrapper" id="shop-by-brand-arrows-{{ section_id }}"></div>
+
+      {%- if section.settings.view_all_text != blank -%}
+        <a
+          class="shop-by-brand__view-all"
+          {% if section.settings.view_all_url != blank %}
+            href="{{ section.settings.view_all_url }}"
+          {% endif %}
+        >
+          {{ section.settings.view_all_text | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Mobile header {%- endcomment -%}
+  <div class="shop-by-brand__header-mobile">
+    <h2 class="shop-by-brand__heading shop-by-brand__heading--mobile">{{ section.settings.heading | escape }}</h2>
+
+    {%- if section.settings.view_all_text != blank -%}
+      <a
+        class="shop-by-brand__view-all shop-by-brand__view-all--mobile"
+        {% if section.settings.view_all_url != blank %}
+          href="{{ section.settings.view_all_url }}"
+        {% endif %}
+      >
+        {{ section.settings.view_all_text | escape }}
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Desktop carousel {%- endcomment -%}
+  <div class="shop-by-brand__desktop-carousel">
+    {%- capture slide_content -%}
+      {%- for block in brand_blocks -%}
+        <div class="shop-by-brand__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" class="shop-by-brand__card-link">
+          {%- endif -%}
+
+          <div class="shop-by-brand__card-image">
+            {%- if block.settings.logo_svg != blank -%}
+              <img
+                src="{{ block.settings.logo_svg | asset_url }}"
+                alt="{{ block.settings.brand_name | escape }}"
+                loading="lazy"
+                class="shop-by-brand__logo"
+              />
+            {%- elsif block.settings.logo_image != blank -%}
+              {{
+                block.settings.logo_image
+                | image_url: width: block.settings.logo_image.width
+                | image_tag:
+                  sizes: '221px',
+                  widths: '111,221,442',
+                  loading: 'lazy',
+                  alt: block.settings.brand_name,
+                  class: 'shop-by-brand__logo shop-by-brand__logo--raster'
+              }}
+            {%- endif -%}
+          </div>
+
+          <div class="shop-by-brand__card-content">
+            {%- if block.settings.brand_name != blank -%}
+              <p class="shop-by-brand__brand-name">{{ block.settings.brand_name | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="shop-by-brand__description">{{ block.settings.description | escape }}</p>
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- capture custom_arrows -%}
+      <slideshow-arrows position="center" class="shop-by-brand__slideshow-arrows" ref="arrows">
+        {%- render 'slideshow-arrow', action: 'previous', icon_style: 'chevron', icon_shape: 'none' -%}
+        {%- render 'slideshow-arrow', action: 'next', icon_style: 'chevron', icon_shape: 'none' -%}
+      </slideshow-arrows>
+    {%- endcapture -%}
+
+    {% render 'slideshow',
+      slides: slide_content,
+      slide_count: blocks_size,
+      show_arrows: false,
+      slideshow_arrows: custom_arrows,
+      class: 'shop-by-brand__slideshow',
+      infinite: true,
+      auto_hide_controls: true
+    %}
+  </div>
+
+  {%- comment -%} Mobile paginated grid {%- endcomment -%}
+  <div class="shop-by-brand__mobile-grid">
+    {%- liquid
+      assign items_per_page = 6
+      assign total_pages = blocks_size | plus: 0.0 | divided_by: items_per_page | ceil
+      if total_pages < 1
+        assign total_pages = 1
+      endif
+    -%}
+
+    <div class="shop-by-brand__mobile-scroller" id="shop-by-brand-scroller-{{ section_id }}">
+      {%- for page_index in (1..total_pages) -%}
+        {%- liquid
+          assign page_offset = page_index | minus: 1 | times: items_per_page
+        -%}
+        <div class="shop-by-brand__mobile-page">
+          {%- for block in brand_blocks limit: items_per_page offset: page_offset -%}
+            <div class="shop-by-brand__mobile-card" {{ block.shopify_attributes }}>
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="shop-by-brand__mobile-card-link">
+              {%- endif -%}
+
+              <div class="shop-by-brand__mobile-card-image">
+                {%- if block.settings.logo_svg != blank -%}
+                  <img
+                    src="{{ block.settings.logo_svg | asset_url }}"
+                    alt="{{ block.settings.brand_name | escape }}"
+                    loading="lazy"
+                    class="shop-by-brand__logo"
+                  />
+                {%- elsif block.settings.logo_image != blank -%}
+                  {{
+                    block.settings.logo_image
+                    | image_url: width: block.settings.logo_image.width
+                    | image_tag:
+                      sizes: '111px',
+                      widths: '111,222',
+                      loading: 'lazy',
+                      alt: block.settings.brand_name,
+                      class: 'shop-by-brand__logo shop-by-brand__logo--raster'
+                  }}
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.link != blank -%}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if total_pages > 1 -%}
+      <div class="shop-by-brand__dots" aria-label="Page navigation">
+        {%- for page_index in (1..total_pages) -%}
+          <button
+            class="shop-by-brand__dot{% if page_index == 1 %} shop-by-brand__dot--active{% endif %}"
+            data-page="{{ page_index | minus: 1 }}"
+            aria-label="Go to page {{ page_index }}"
+          ></button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function() {
+    const sectionId = '{{ section_id }}';
+    const scroller = document.getElementById('shop-by-brand-scroller-' + sectionId);
+    if (!scroller) return;
+
+    const dots = scroller.parentElement.querySelectorAll('.shop-by-brand__dot');
+    if (!dots.length) return;
+
+    const pages = scroller.querySelectorAll('.shop-by-brand__mobile-page');
+
+    const observer = new IntersectionObserver(function(entries) {
+      for (const entry of entries) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          const index = Array.from(pages).indexOf(entry.target);
+          for (const dot of dots) {
+            dot.classList.toggle('shop-by-brand__dot--active', Number(dot.dataset.page) === index);
+          }
+        }
+      }
+    }, {
+      root: scroller,
+      threshold: 0.5
+    });
+
+    for (const page of pages) {
+      observer.observe(page);
+    }
+
+    for (const dot of dots) {
+      dot.addEventListener('click', function() {
+        const pageIndex = Number(this.dataset.page);
+        const targetPage = pages[pageIndex];
+        if (targetPage) {
+          scroller.scrollTo({ left: targetPage.offsetLeft, behavior: 'smooth' });
+        }
+      });
+    }
+  })();
+</script>
+
+{% stylesheet %}
+  .shop-by-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Header — Desktop */
+  .shop-by-brand__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .shop-by-brand__header-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .shop-by-brand__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 40px;
+    color: #141414;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .shop-by-brand__view-all {
+    font-family: var(--font-subheading--family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 38px;
+    color: #098AA7;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  .shop-by-brand__view-all:hover {
+    opacity: 0.8;
+  }
+
+  .shop-by-brand__header-mobile {
+    display: none;
+  }
+
+  /* Slideshow arrows positioning */
+  .shop-by-brand__slideshow-arrows {
+    position: static;
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Desktop carousel */
+  .shop-by-brand__desktop-carousel {
+    display: block;
+  }
+
+  .shop-by-brand__slideshow slideshow-slides {
+    gap: var(--shop-by-brand-gap, 16px);
+  }
+
+  .shop-by-brand__card {
+    flex: 0 0 calc((100% - var(--shop-by-brand-gap, 16px) * (var(--shop-by-brand-columns, 6) - 1)) / var(--shop-by-brand-columns, 6));
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .shop-by-brand__card-link {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .shop-by-brand__card-image {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 1px solid #D3D3D3;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .shop-by-brand__logo {
+    max-width: 70%;
+    max-height: 40%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .shop-by-brand__logo--raster {
+    max-width: 60%;
+    max-height: 35%;
+  }
+
+  .shop-by-brand__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    text-align: center;
+  }
+
+  .shop-by-brand__brand-name {
+    font-family: var(--font-body--family);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 29px;
+    color: #141414;
+    margin: 0;
+    text-align: center;
+  }
+
+  .shop-by-brand__description {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #7E7E7E;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Mobile grid */
+  .shop-by-brand__mobile-grid {
+    display: none;
+  }
+
+  .shop-by-brand__mobile-scroller {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+  }
+
+  .shop-by-brand__mobile-scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .shop-by-brand__mobile-page {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .shop-by-brand__mobile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .shop-by-brand__mobile-card-link {
+    display: block;
+    width: 100%;
+  }
+
+  .shop-by-brand__mobile-card-image {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 1px solid #D3D3D3;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .shop-by-brand__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .shop-by-brand__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, width 0.2s ease, height 0.2s ease;
+  }
+
+  .shop-by-brand__dot--active {
+    width: 10px;
+    height: 10px;
+    background-color: #141414;
+  }
+
+  /* Mobile styles */
+  @media screen and (max-width: 749px) {
+    .shop-by-brand {
+      gap: 20px;
+    }
+
+    .shop-by-brand__header {
+      display: none;
+    }
+
+    .shop-by-brand__header-mobile {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .shop-by-brand__heading--mobile {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    .shop-by-brand__view-all--mobile {
+      font-size: 16px;
+      line-height: 38px;
+    }
+
+    .shop-by-brand__desktop-carousel {
+      display: none;
+    }
+
+    .shop-by-brand__mobile-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .shop-by-brand__card-content {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shop-by-brand__mobile-scroller {
+      scroll-behavior: auto;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.shop_by_brand",
+  "class": "shop-by-brand-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings.heading",
+      "default": "Shop by Brand"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "t:settings.view_all_url"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "t:settings.view_all_text",
+      "default": "View All"
+    },
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:settings.columns",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "t:settings.horizontal_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "t:content.appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand-card",
+      "name": "t:names.brand_card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "logo_svg",
+          "label": "t:settings.logo_svg"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "t:settings.image"
+        },
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "t:settings.brand_name"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "t:settings.description"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:settings.link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.shop_by_brand",
+      "category": "t:categories.products",
+      "settings": {
+        "heading": "Shop by Brand",
+        "view_all_text": "View All",
+        "columns": 6,
+        "columns_gap": 16,
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": [
+        {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "isotonix-logo-black-1-2.svg",
+            "brand_name": "Isotonix",
+            "description": "Vitamins with maximum absorption"
+          }
+        },
+        {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "prime-logo-2.svg",
+            "brand_name": "Prime",
+            "description": "Anti-Aging Nutraceuticsl"
+          }
+        },
+        {
+          "type": "brand-card",
+          "settings": {
+            "logo_svg": "ldv-usca-au-gb-es-hk-tw-sg-logo-1-2.svg",
+            "brand_name": "Lumiere de Vie",
+            "description": "Skin care products for men and women."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

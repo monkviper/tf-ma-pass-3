@@ -438,7 +438,9 @@
     "custom_announcement_bar": "Custom announcement bar",
     "custom_header": "Custom header",
     "custom_subheader": "Custom subheader",
-    "image_banner": "Image banner"
+    "image_banner": "Image banner",
+    "shop_by_brand": "Shop by Brand",
+    "brand_card": "Brand card"
   },
   "options": {
     "above_carousel": "Above carousel",
@@ -1191,7 +1193,12 @@
     "promo_link": "Promo link",
     "desktop_image": "Desktop image",
     "mobile_image": "Mobile image",
-    "image_alt": "Image alt text"
+    "image_alt": "Image alt text",
+    "view_all_url": "View all URL",
+    "view_all_text": "View all text",
+    "logo_svg": "Logo asset",
+    "brand_name": "Brand name",
+    "description": "Description"
   },
   "text_defaults": {
     "accordion_heading": "Accordion heading",
