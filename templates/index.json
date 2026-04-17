@@ -1,27 +1,27 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "slideshow_hero": {
       "type": "slideshow",
-      "settings": {
-        "display_mode": "full_frame",
-        "section_width": "full-width",
-        "slide_height": "medium",
-        "content_position": "on-media",
-        "color_scheme": "scheme-1",
-        "icons_style": "chevron",
-        "icons_shape": "circle",
-        "slideshow_controls_style": "dots",
-        "autoplay": true,
-        "autoplay_speed": 5,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      },
       "blocks": {
         "slide_1": {
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/eir-health-utzsB-B2toE-unsplash.jpg",
             "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 24,
@@ -41,32 +41,83 @@
               "type": "text",
               "settings": {
                 "text": "<h2>Feel Younger. Think Sharper. Age Better</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "h2",
-                "color": "var(--color-foreground)"
-              }
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "subtitle_1": {
               "type": "text",
               "settings": {
                 "text": "<p>Engineered for fast uptake and cellular support.</p>",
-                "color": "var(--color-foreground)"
-              }
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "button_1": {
               "type": "button",
               "settings": {
                 "label": "Start Now",
-                "style_class": "button-primary"
-              }
+                "link": "",
+                "open_in_new_tab": false,
+                "style_class": "button-primary",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
             }
           },
-          "block_order": ["heading_1", "subtitle_1", "button_1"]
+          "block_order": [
+            "heading_1",
+            "subtitle_1",
+            "button_1"
+          ]
         },
         "slide_2": {
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/rectangle-1-mobile-3095952_730183c1-66d6-4261-b1f8-097ed2a7e7a0.png",
             "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 24,
@@ -86,29 +137,95 @@
               "type": "text",
               "settings": {
                 "text": "<h2>Feel Younger. Think Sharper. Age Better</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "h2",
-                "color": "var(--color-foreground)"
-              }
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "subtitle_2": {
               "type": "text",
               "settings": {
                 "text": "<p>Engineered for fast uptake and cellular support.</p>",
-                "color": "var(--color-foreground)"
-              }
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             },
             "button_2": {
               "type": "button",
               "settings": {
                 "label": "Start Now",
-                "style_class": "button-primary"
-              }
+                "link": "",
+                "open_in_new_tab": false,
+                "style_class": "button-primary",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
             }
           },
-          "block_order": ["heading_2", "subtitle_2", "button_2"]
+          "block_order": [
+            "heading_2",
+            "subtitle_2",
+            "button_2"
+          ]
         }
       },
-      "block_order": ["slide_1", "slide_2"]
+      "block_order": [
+        "slide_1",
+        "slide_2"
+      ],
+      "settings": {
+        "display_mode": "full_frame",
+        "section_width": "page-width",
+        "full_frame_on_mobile": false,
+        "slideshow_gap": 12,
+        "corner_radius": 0,
+        "slide_height": "large",
+        "content_position": "on-media",
+        "color_scheme": "scheme-1",
+        "icons_style": "chevron",
+        "icons_shape": "circle",
+        "slideshow_controls_style": "dots",
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     },
     "product_list_fa6P9H": {
       "type": "product-list",
