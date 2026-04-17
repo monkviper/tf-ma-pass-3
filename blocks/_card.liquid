@@ -172,6 +172,12 @@
   .card__link ~ .card__content--design-mode {
     pointer-events: auto;
   }
+
+  @container (max-width: 150px) {
+    .card__inner .text-block {
+      display: none;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

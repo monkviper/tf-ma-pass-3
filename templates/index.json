@@ -536,83 +536,791 @@
       }
     },
     "shop_by_brand": {
-      "type": "shop-by-brand",
+      "type": "carousel",
       "settings": {
-        "heading": "Shop by Brand",
-        "view_all_text": "View All",
         "columns": 6,
+        "mobile_columns": "3",
+        "section_width": "page-width",
         "columns_gap": 16,
         "color_scheme": "scheme-1",
+        "icons_style": "chevron",
+        "icons_shape": "none",
         "padding-block-start": 48,
         "padding-block-end": 48
       },
       "blocks": {
-        "brand_isotonix": {
-          "type": "brand-card",
+        "static-header": {
+          "type": "group",
+          "static": true,
           "settings": {
-            "logo_svg": "isotonix-logo-black-1-2.svg",
-            "brand_name": "Isotonix",
-            "description": "Vitamins with maximum absorption"
-          }
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 16,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "heading": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>Shop by Brand</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "clamp(1.5rem, 3.5vw, 2.25rem)",
+                "line_height": "2.5rem",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "#141414",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "view_all_link": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p><a href=\"/collections\">View All</a></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-subheading--family)",
+                "font_size": "clamp(1rem, 2vw, 1.125rem)",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "nowrap",
+                "color": "#098AA7",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading",
+            "view_all_link"
+          ]
         },
-        "brand_prime": {
-          "type": "brand-card",
+        "static-carousel-content": {
+          "type": "_carousel-content",
+          "static": true,
           "settings": {
-            "logo_svg": "prime-logo-2.svg",
-            "brand_name": "Prime",
-            "description": "Anti-Aging Nutraceuticsl"
-          }
-        },
-        "brand_lumiere": {
-          "type": "brand-card",
-          "settings": {
-            "logo_svg": "ldv-usca-au-gb-es-hk-tw-sg-logo-1-2.svg",
-            "brand_name": "Lumiere de Vie",
-            "description": "Skin care products for men and women."
-          }
-        },
-        "brand_gotrim": {
-          "type": "brand-card",
-          "settings": {
-            "logo_svg": "",
-            "brand_name": "GoTrim",
-            "description": "Sustainable weight loss & vibrant lifestyle"
-          }
-        },
-        "brand_layered": {
-          "type": "brand-card",
-          "settings": {
-            "logo_svg": "layered-logo-1-2.svg",
-            "brand_name": "Layered",
-            "description": "Anti-Aging Nutraceuticsl"
-          }
-        },
-        "brand_vita_shield": {
-          "type": "brand-card",
-          "settings": {
-            "logo_svg": "",
-            "brand_name": "Vita Shield",
-            "description": "Therapy treatments to promote younger-looking skin"
-          }
-        },
-        "brand_motives": {
-          "type": "brand-card",
-          "settings": {
-            "logo_svg": "motives-logo-black-1.svg",
-            "brand_name": "Motives",
-            "description": ""
-          }
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "position": "top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "height": "fit"
+          },
+          "blocks": {
+            "card_isotonix": {
+              "type": "_card",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 12,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "border": "none",
+                "border_width": 0,
+                "border_opacity": 100,
+                "border_radius": 4,
+                "toggle_overlay": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "image_1": {
+                  "type": "image",
+                  "settings": {
+                    "image_ratio": "square",
+                    "width": "fill",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "border": "solid",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 300,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "brand_name_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Isotonix</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-subheading--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "1.6",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#141414",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "desc_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Vitamins with maximum absorption</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "1.25",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#7E7E7E",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": ["image_1", "brand_name_1", "desc_1"]
+            },
+            "card_prime": {
+              "type": "_card",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 12,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "border": "none",
+                "border_width": 0,
+                "border_opacity": 100,
+                "border_radius": 4,
+                "toggle_overlay": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "image_2": {
+                  "type": "image",
+                  "settings": {
+                    "image_ratio": "square",
+                    "width": "fill",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "border": "solid",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 300,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "brand_name_2": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Prime</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-subheading--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "1.6",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#141414",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "desc_2": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Anti-Aging Nutraceuticsl</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "1.25",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#7E7E7E",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": ["image_2", "brand_name_2", "desc_2"]
+            },
+            "card_lumiere": {
+              "type": "_card",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 12,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "border": "none",
+                "border_width": 0,
+                "border_opacity": 100,
+                "border_radius": 4,
+                "toggle_overlay": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "image_3": {
+                  "type": "image",
+                  "settings": {
+                    "image_ratio": "square",
+                    "width": "fill",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "border": "solid",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 300,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "brand_name_3": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Lumiere de Vie</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-subheading--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "1.6",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#141414",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "desc_3": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Skin care products for men and women.</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "1.25",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#7E7E7E",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": ["image_3", "brand_name_3", "desc_3"]
+            },
+            "card_gotrim": {
+              "type": "_card",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 12,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "border": "none",
+                "border_width": 0,
+                "border_opacity": 100,
+                "border_radius": 4,
+                "toggle_overlay": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "image_4": {
+                  "type": "image",
+                  "settings": {
+                    "image_ratio": "square",
+                    "width": "fill",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "border": "solid",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 300,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "brand_name_4": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>GoTrim</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-subheading--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "1.6",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#141414",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "desc_4": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Sustainable weight loss & vibrant lifestyle</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "1.25",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#7E7E7E",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": ["image_4", "brand_name_4", "desc_4"]
+            },
+            "card_layered": {
+              "type": "_card",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 12,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "border": "none",
+                "border_width": 0,
+                "border_opacity": 100,
+                "border_radius": 4,
+                "toggle_overlay": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "image_5": {
+                  "type": "image",
+                  "settings": {
+                    "image_ratio": "square",
+                    "width": "fill",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "border": "solid",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 300,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "brand_name_5": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Layered</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-subheading--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "1.6",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#141414",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "desc_5": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Anti-Aging Nutraceuticsl</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "1.25",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#7E7E7E",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": ["image_5", "brand_name_5", "desc_5"]
+            },
+            "card_vita_shield": {
+              "type": "_card",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 12,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "border": "none",
+                "border_width": 0,
+                "border_opacity": 100,
+                "border_radius": 4,
+                "toggle_overlay": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "image_6": {
+                  "type": "image",
+                  "settings": {
+                    "image_ratio": "square",
+                    "width": "fill",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "border": "solid",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 300,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "brand_name_6": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Vita Shield</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-subheading--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "1.6",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#141414",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "desc_6": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Therapy treatments to promote younger-looking skin</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "1.25",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#7E7E7E",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": ["image_6", "brand_name_6", "desc_6"]
+            },
+            "card_motives": {
+              "type": "_card",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 12,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "border": "none",
+                "border_width": 0,
+                "border_opacity": 100,
+                "border_radius": 4,
+                "toggle_overlay": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "image_7": {
+                  "type": "image",
+                  "settings": {
+                    "image_ratio": "square",
+                    "width": "fill",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "border": "solid",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 300,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "brand_name_7": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Motives</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-subheading--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "1.6",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#141414",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                },
+                "desc_7": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Cosmetics for every style</p>",
+                    "width": "fill",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "1.25",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "#7E7E7E",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  }
+                }
+              },
+              "block_order": ["image_7", "brand_name_7", "desc_7"]
+            }
+          },
+          "block_order": [
+            "card_isotonix",
+            "card_prime",
+            "card_lumiere",
+            "card_gotrim",
+            "card_layered",
+            "card_vita_shield",
+            "card_motives"
+          ]
         }
-      },
-      "block_order": [
-        "brand_isotonix",
-        "brand_prime",
-        "brand_lumiere",
-        "brand_gotrim",
-        "brand_layered",
-        "brand_vita_shield",
-        "brand_motives"
-      ]
+      }
     }
   },
   "order": [

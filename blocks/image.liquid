@@ -98,6 +98,7 @@
   .image-block__image {
     object-fit: cover;
     aspect-ratio: var(--ratio);
+    overflow: hidden;
   }
 {% endstylesheet %}
 
@@ -266,13 +267,9 @@
       "visible_if": "{{ block.settings.border != 'none' }}"
     },
     {
-      "type": "range",
+      "type": "number",
       "id": "border_radius",
       "label": "t:settings.border_radius",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
       "default": 0
     },
     {

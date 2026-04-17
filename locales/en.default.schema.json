@@ -726,6 +726,7 @@
     // Icon stroke thickness option, thinnest weight
     "thin": "Thin",
     "threads": "Threads",
+    "three_number": "3",
     "thumbnails": "Thumbnails",
     // Typography spacing option for line height and letter spacing
     "tight": "Tight",
