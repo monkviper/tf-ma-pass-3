@@ -1,90 +1,114 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
- {
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "slideshow_hero": {
+      "type": "slideshow",
+      "settings": {
+        "display_mode": "full_frame",
+        "section_width": "full-width",
+        "slide_height": "medium",
+        "content_position": "on-media",
+        "color_scheme": "scheme-1",
+        "icons_style": "chevron",
+        "icons_shape": "circle",
+        "slideshow_controls_style": "dots",
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      },
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "slide_1": {
+          "type": "_slide",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "media_type_1": "image",
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 24,
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-6",
+            "toggle_overlay": true,
+            "overlay_color": "#00000099",
+            "overlay_style": "gradient",
+            "gradient_direction": "to right",
+            "padding-block-start": 48,
+            "padding-block-end": 48,
+            "padding-inline-start": 64,
+            "padding-inline-end": 48
           },
-          "blocks": {}
+          "blocks": {
+            "heading_1": {
+              "type": "text",
+              "settings": {
+                "text": "<h2>Feel Younger. Think Sharper. Age Better</h2>",
+                "type_preset": "h2",
+                "color": "var(--color-foreground)"
+              }
+            },
+            "subtitle_1": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Engineered for fast uptake and cellular support.</p>",
+                "color": "var(--color-foreground)"
+              }
+            },
+            "button_1": {
+              "type": "button",
+              "settings": {
+                "label": "Start Now",
+                "style_class": "button-primary"
+              }
+            }
+          },
+          "block_order": ["heading_1", "subtitle_1", "button_1"]
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "slide_2": {
+          "type": "_slide",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
+            "media_type_1": "image",
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 24,
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-6",
+            "toggle_overlay": true,
+            "overlay_color": "#00000099",
+            "overlay_style": "gradient",
+            "gradient_direction": "to right",
+            "padding-block-start": 48,
+            "padding-block-end": 48,
+            "padding-inline-start": 64,
+            "padding-inline-end": 48
           },
-          "blocks": {}
+          "blocks": {
+            "heading_2": {
+              "type": "text",
+              "settings": {
+                "text": "<h2>Feel Younger. Think Sharper. Age Better</h2>",
+                "type_preset": "h2",
+                "color": "var(--color-foreground)"
+              }
+            },
+            "subtitle_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Engineered for fast uptake and cellular support.</p>",
+                "color": "var(--color-foreground)"
+              }
+            },
+            "button_2": {
+              "type": "button",
+              "settings": {
+                "label": "Start Now",
+                "style_class": "button-primary"
+              }
+            }
+          },
+          "block_order": ["heading_2", "subtitle_2", "button_2"]
         }
       },
-      "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
-      "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
-      }
+      "block_order": ["slide_1", "slide_2"]
     },
     "product_list_fa6P9H": {
       "type": "product-list",
@@ -282,7 +306,7 @@
     }
   },
   "order": [
-    "hero_jVaWmY",
+    "slideshow_hero",
     "product_list_fa6P9H"
   ]
 }
