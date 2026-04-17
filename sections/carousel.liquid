@@ -1,4 +1,15 @@
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div class="section-background color-{{ section.settings.color_scheme }}">
+  {%- if section.settings.background_image != blank -%}
+    <img
+      class="section-background__image"
+      src="{{ section.settings.background_image | image_url: width: section.settings.background_image.width }}"
+      alt="{{ section.settings.background_image.alt | escape }}"
+      loading="lazy"
+      width="{{ section.settings.background_image.width }}"
+      height="{{ section.settings.background_image.height }}"
+    >
+  {%- endif -%}
+</div>
 <div
   class="
     section
@@ -19,6 +30,28 @@
   {% content_for 'block', type: '_carousel-content', id: 'static-carousel-content', closest.product: null %}
 </div>
 
+{% stylesheet %}
+  .section-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .section-background__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .section-carousel {
+    position: relative;
+    z-index: 1;
+  }
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "t:names.carousel",
@@ -26,6 +59,15 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "t:content.background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "t:settings.image"
+    },
     {
       "type": "range",
       "id": "columns",
