@@ -537,17 +537,6 @@
     },
     "shop_by_brand": {
       "type": "carousel",
-      "settings": {
-        "columns": 6,
-        "mobile_columns": "3",
-        "section_width": "page-width",
-        "columns_gap": 16,
-        "color_scheme": "scheme-1",
-        "icons_style": "chevron",
-        "icons_shape": "none",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      },
       "blocks": {
         "static-header": {
           "type": "group",
@@ -576,6 +565,13 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
             "padding-block-start": 0,
             "padding-block-end": 16,
             "padding-inline-start": 0,
@@ -646,6 +642,7 @@
           "settings": {
             "inherit_color_scheme": true,
             "color_scheme": "",
+            "height": "fit",
             "position": "top",
             "border": "none",
             "border_width": 1,
@@ -654,8 +651,7 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "height": "fit"
+            "padding-inline-end": 0
           },
           "blocks": {
             "card_isotonix": {
@@ -672,11 +668,13 @@
                 "inherit_color_scheme": true,
                 "color_scheme": "",
                 "background_media": "none",
-                "border": "none",
-                "border_width": 0,
-                "border_opacity": 100,
-                "border_radius": 4,
+                "aspect_ratio": "adapt",
                 "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -686,19 +684,24 @@
                 "image_1": {
                   "type": "image",
                   "settings": {
+                    "image": "shopify://shop_images/image.jpg",
+                    "link": "",
                     "image_ratio": "square",
                     "width": "fill",
+                    "custom_width": 100,
                     "width_mobile": "fill",
+                    "custom_width_mobile": 100,
                     "height": "fit",
                     "border": "solid",
                     "border_width": 1,
-                    "border_opacity": 100,
+                    "border_opacity": 10,
                     "border_radius": 300,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "brand_name_1": {
                   "type": "text",
@@ -722,7 +725,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_1": {
                   "type": "text",
@@ -746,10 +750,15 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["image_1", "brand_name_1", "desc_1"]
+              "block_order": [
+                "image_1",
+                "brand_name_1",
+                "desc_1"
+              ]
             },
             "card_prime": {
               "type": "_card",
@@ -765,11 +774,13 @@
                 "inherit_color_scheme": true,
                 "color_scheme": "",
                 "background_media": "none",
-                "border": "none",
-                "border_width": 0,
-                "border_opacity": 100,
-                "border_radius": 4,
+                "aspect_ratio": "adapt",
                 "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -779,19 +790,24 @@
                 "image_2": {
                   "type": "image",
                   "settings": {
+                    "image": "shopify://shop_images/image_1.jpg",
+                    "link": "",
                     "image_ratio": "square",
                     "width": "fill",
+                    "custom_width": 100,
                     "width_mobile": "fill",
+                    "custom_width_mobile": 100,
                     "height": "fit",
                     "border": "solid",
                     "border_width": 1,
-                    "border_opacity": 100,
+                    "border_opacity": 10,
                     "border_radius": 300,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "brand_name_2": {
                   "type": "text",
@@ -815,7 +831,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_2": {
                   "type": "text",
@@ -839,10 +856,15 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["image_2", "brand_name_2", "desc_2"]
+              "block_order": [
+                "image_2",
+                "brand_name_2",
+                "desc_2"
+              ]
             },
             "card_lumiere": {
               "type": "_card",
@@ -858,11 +880,13 @@
                 "inherit_color_scheme": true,
                 "color_scheme": "",
                 "background_media": "none",
-                "border": "none",
-                "border_width": 0,
-                "border_opacity": 100,
-                "border_radius": 4,
+                "aspect_ratio": "adapt",
                 "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -872,19 +896,24 @@
                 "image_3": {
                   "type": "image",
                   "settings": {
+                    "image": "shopify://shop_images/image_2.jpg",
+                    "link": "",
                     "image_ratio": "square",
                     "width": "fill",
+                    "custom_width": 100,
                     "width_mobile": "fill",
+                    "custom_width_mobile": 100,
                     "height": "fit",
                     "border": "solid",
                     "border_width": 1,
-                    "border_opacity": 100,
+                    "border_opacity": 10,
                     "border_radius": 300,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "brand_name_3": {
                   "type": "text",
@@ -908,7 +937,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_3": {
                   "type": "text",
@@ -932,10 +962,15 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["image_3", "brand_name_3", "desc_3"]
+              "block_order": [
+                "image_3",
+                "brand_name_3",
+                "desc_3"
+              ]
             },
             "card_gotrim": {
               "type": "_card",
@@ -951,11 +986,13 @@
                 "inherit_color_scheme": true,
                 "color_scheme": "",
                 "background_media": "none",
-                "border": "none",
-                "border_width": 0,
-                "border_opacity": 100,
-                "border_radius": 4,
+                "aspect_ratio": "adapt",
                 "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -965,19 +1002,24 @@
                 "image_4": {
                   "type": "image",
                   "settings": {
+                    "image": "shopify://shop_images/image_4.jpg",
+                    "link": "",
                     "image_ratio": "square",
                     "width": "fill",
+                    "custom_width": 100,
                     "width_mobile": "fill",
+                    "custom_width_mobile": 100,
                     "height": "fit",
                     "border": "solid",
                     "border_width": 1,
-                    "border_opacity": 100,
+                    "border_opacity": 10,
                     "border_radius": 300,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "brand_name_4": {
                   "type": "text",
@@ -1001,7 +1043,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_4": {
                   "type": "text",
@@ -1025,10 +1068,15 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["image_4", "brand_name_4", "desc_4"]
+              "block_order": [
+                "image_4",
+                "brand_name_4",
+                "desc_4"
+              ]
             },
             "card_layered": {
               "type": "_card",
@@ -1044,11 +1092,13 @@
                 "inherit_color_scheme": true,
                 "color_scheme": "",
                 "background_media": "none",
-                "border": "none",
-                "border_width": 0,
-                "border_opacity": 100,
-                "border_radius": 4,
+                "aspect_ratio": "adapt",
                 "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -1058,19 +1108,24 @@
                 "image_5": {
                   "type": "image",
                   "settings": {
+                    "image": "shopify://shop_images/image_5.jpg",
+                    "link": "",
                     "image_ratio": "square",
                     "width": "fill",
+                    "custom_width": 100,
                     "width_mobile": "fill",
+                    "custom_width_mobile": 100,
                     "height": "fit",
                     "border": "solid",
                     "border_width": 1,
-                    "border_opacity": 100,
+                    "border_opacity": 10,
                     "border_radius": 300,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "brand_name_5": {
                   "type": "text",
@@ -1094,7 +1149,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_5": {
                   "type": "text",
@@ -1118,10 +1174,15 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["image_5", "brand_name_5", "desc_5"]
+              "block_order": [
+                "image_5",
+                "brand_name_5",
+                "desc_5"
+              ]
             },
             "card_vita_shield": {
               "type": "_card",
@@ -1137,11 +1198,13 @@
                 "inherit_color_scheme": true,
                 "color_scheme": "",
                 "background_media": "none",
-                "border": "none",
-                "border_width": 0,
-                "border_opacity": 100,
-                "border_radius": 4,
+                "aspect_ratio": "adapt",
                 "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -1151,19 +1214,24 @@
                 "image_6": {
                   "type": "image",
                   "settings": {
+                    "image": "shopify://shop_images/image_3.jpg",
+                    "link": "",
                     "image_ratio": "square",
                     "width": "fill",
+                    "custom_width": 100,
                     "width_mobile": "fill",
+                    "custom_width_mobile": 100,
                     "height": "fit",
                     "border": "solid",
                     "border_width": 1,
-                    "border_opacity": 100,
+                    "border_opacity": 10,
                     "border_radius": 300,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "brand_name_6": {
                   "type": "text",
@@ -1187,7 +1255,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_6": {
                   "type": "text",
@@ -1211,10 +1280,15 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["image_6", "brand_name_6", "desc_6"]
+              "block_order": [
+                "image_6",
+                "brand_name_6",
+                "desc_6"
+              ]
             },
             "card_motives": {
               "type": "_card",
@@ -1230,11 +1304,13 @@
                 "inherit_color_scheme": true,
                 "color_scheme": "",
                 "background_media": "none",
-                "border": "none",
-                "border_width": 0,
-                "border_opacity": 100,
-                "border_radius": 4,
+                "aspect_ratio": "adapt",
                 "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -1244,19 +1320,24 @@
                 "image_7": {
                   "type": "image",
                   "settings": {
+                    "image": "shopify://shop_images/image.jpg",
+                    "link": "",
                     "image_ratio": "square",
                     "width": "fill",
+                    "custom_width": 100,
                     "width_mobile": "fill",
+                    "custom_width_mobile": 100,
                     "height": "fit",
                     "border": "solid",
                     "border_width": 1,
-                    "border_opacity": 100,
+                    "border_opacity": 10,
                     "border_radius": 300,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "brand_name_7": {
                   "type": "text",
@@ -1280,7 +1361,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "desc_7": {
                   "type": "text",
@@ -1304,10 +1386,15 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["image_7", "brand_name_7", "desc_7"]
+              "block_order": [
+                "image_7",
+                "brand_name_7",
+                "desc_7"
+              ]
             }
           },
           "block_order": [
@@ -1320,6 +1407,17 @@
             "card_motives"
           ]
         }
+      },
+      "settings": {
+        "columns": 6,
+        "mobile_columns": "3",
+        "section_width": "page-width",
+        "columns_gap": 16,
+        "color_scheme": "scheme-1",
+        "icons_style": "chevron",
+        "icons_shape": "none",
+        "padding-block-start": 48,
+        "padding-block-end": 48
       }
     }
   },
