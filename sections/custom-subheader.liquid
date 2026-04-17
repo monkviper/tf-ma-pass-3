@@ -1,0 +1,229 @@
+{%- liquid
+  assign menu = section.settings.menu
+-%}
+
+<div
+  class="custom-subheader color-{{ section.settings.color_scheme }}"
+  style="
+    --section-padding-top: 10px;
+    --section-padding-bottom: 10px;
+  "
+>
+  <div class="custom-subheader__inner">
+    {%- comment -%} LEFT: Hamburger + Nav links {%- endcomment -%}
+    <div class="custom-subheader__left">
+      <button
+        class="custom-subheader__hamburger button-unstyled"
+        aria-label="Open menu"
+        type="button"
+        on:click="#header-drawer/showDialog"
+        aria-haspopup="dialog"
+      >
+        <img
+          src="{{ 'menu-streamline-sharp-material-symbols.svg' | asset_url }}"
+          alt=""
+          width="28"
+          height="28"
+          aria-hidden="true"
+        >
+      </button>
+
+      <nav class="custom-subheader__nav" aria-label="Brand navigation">
+        <ul class="custom-subheader__nav-list">
+          {%- if menu != blank -%}
+            {%- for link in linklists[menu].links limit: 3 -%}
+              <li class="custom-subheader__nav-item">
+                <a href="{{ link.url }}" class="custom-subheader__nav-link">
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li class="custom-subheader__nav-item">
+              <a href="#" class="custom-subheader__nav-link">Brands</a>
+            </li>
+            <li class="custom-subheader__nav-item">
+              <a href="#" class="custom-subheader__nav-link">Deals</a>
+            </li>
+            <li class="custom-subheader__nav-item">
+              <a href="#" class="custom-subheader__nav-link">Stores</a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </nav>
+    </div>
+
+    {%- comment -%} CENTER: Cashback text {%- endcomment -%}
+    <div class="custom-subheader__center">
+      <span class="custom-subheader__center-text">
+        {{ section.settings.center_text }}
+      </span>
+    </div>
+
+    {%- comment -%} RIGHT: Gradient pill CTA {%- endcomment -%}
+    <div class="custom-subheader__right">
+      <a
+        href="{{ section.settings.promo_link | default: '#' }}"
+        class="custom-subheader__promo-pill"
+      >
+        <span class="custom-subheader__promo-text">{{ section.settings.promo_text }}</span>
+        <span class="custom-subheader__promo-arrow">
+          <img
+            src="{{ 'chevron-forward-streamline-outlined-material-symbols.svg' | asset_url }}"
+            alt=""
+            width="20"
+            height="20"
+            aria-hidden="true"
+          >
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .custom-subheader {
+    background-color: #f0f0f0;
+    padding-block: 10px;
+    padding-inline: var(--padding-2xl, 64px);
+  }
+
+  .custom-subheader__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--narrow-page-width, 90rem);
+    margin-inline: auto;
+    gap: 20px;
+  }
+
+  /* Left */
+  .custom-subheader__left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .custom-subheader__hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .custom-subheader__nav-list {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .custom-subheader__nav-link {
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #141414;
+    text-decoration: none;
+  }
+
+  .custom-subheader__nav-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Center */
+  .custom-subheader__center {
+    flex: 1;
+    text-align: center;
+  }
+
+  .custom-subheader__center-text {
+    font-family: 'Roboto', var(--font-body--family), sans-serif;
+    font-size: 1rem;
+    line-height: 1.19;
+    letter-spacing: -0.16px;
+    color: #000000;
+  }
+
+  /* Right */
+  .custom-subheader__right {
+    flex-shrink: 0;
+  }
+
+  .custom-subheader__promo-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 32px;
+    background: linear-gradient(90deg, #C9D855 0%, #69BA86 49%, #408DA1 100%);
+    text-decoration: none;
+    color: #141414;
+    font-family: 'Roboto', var(--font-body--family), sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.21;
+    letter-spacing: -0.14px;
+    white-space: nowrap;
+  }
+
+  .custom-subheader__promo-pill:hover {
+    opacity: 0.9;
+  }
+
+  .custom-subheader__promo-arrow {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hide on mobile */
+  @media screen and (max-width: 749px) {
+    .custom-subheader {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.custom_subheader",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:settings.menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "center_text",
+      "label": "t:settings.center_text",
+      "default": "$6,073,506,282 awarded in cash! Learn More"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "t:settings.promo_text",
+      "default": "Get Paid Daily."
+    },
+    {
+      "type": "url",
+      "id": "promo_link",
+      "label": "t:settings.promo_link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

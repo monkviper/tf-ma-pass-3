@@ -1,0 +1,402 @@
+<script src="{{ 'cart-icon.js' | asset_url }}" type="module"></script>
+<script src="{{ 'dialog.js' | asset_url }}" type="module"></script>
+
+<div
+  class="custom-header color-{{ section.settings.color_scheme }}"
+  style="
+    --section-padding-top: 12px;
+    --section-padding-bottom: 12px;
+    {% if section.settings.enable_sticky %}position: sticky; top: 0; z-index: var(--layer-header, 10);{% endif %}
+  "
+>
+  <div class="custom-header__inner">
+    {%- comment -%} LEFT: Logo {%- endcomment -%}
+    <div class="custom-header__left">
+      <a href="{{ routes.root_url }}" class="custom-header__logo-link" aria-label="{{ shop.name }}">
+        <img
+          src="{{ 'shop-logo-2.svg' | asset_url }}"
+          alt="{{ shop.name }}"
+          width="178"
+          height="24"
+          loading="eager"
+          class="custom-header__logo"
+        >
+      </a>
+    </div>
+
+    {%- comment -%} CENTER: Search input (fake — opens search modal) {%- endcomment -%}
+    <div class="custom-header__center">
+      <button
+        class="custom-header__search-input"
+        on:click="#search-modal/showDialog"
+        aria-label="{{ 'content.search_input_label' | t }}"
+        aria-haspopup="dialog"
+        type="button"
+      >
+        <span class="custom-header__search-placeholder">Search products</span>
+        <span class="custom-header__search-icon">
+          <img
+            src="{{ 'search-streamline-sharp-streamline-material-free.svg' | asset_url }}"
+            alt=""
+            width="20"
+            height="20"
+            aria-hidden="true"
+          >
+        </span>
+      </button>
+    </div>
+
+    {%- comment -%} RIGHT: Actions {%- endcomment -%}
+    <div class="custom-header__right">
+      {%- comment -%} Take Quiz CTA {%- endcomment -%}
+      <a
+        href="{{ section.settings.quiz_link | default: '#' }}"
+        class="custom-header__quiz-btn"
+      >
+        {{ section.settings.quiz_text }}
+      </a>
+
+      {%- comment -%} Flag / Localization {%- endcomment -%}
+      <div class="custom-header__flag">
+        <img
+          src="{{ 'us-united-states-streamline-flagpack.svg' | asset_url }}"
+          alt="US"
+          width="18"
+          height="18"
+          loading="eager"
+        >
+      </div>
+
+      {%- comment -%} Sign In {%- endcomment -%}
+      <a href="{{ routes.account_url }}" class="custom-header__sign-in">
+        <span class="custom-header__sign-in-icon">
+          <img
+            src="{{ 'frame-663.svg' | asset_url }}"
+            alt=""
+            width="20"
+            height="20"
+            aria-hidden="true"
+          >
+        </span>
+        <span class="custom-header__sign-in-text">Sign in</span>
+      </a>
+
+      {%- comment -%} Cart {%- endcomment -%}
+      <a href="{{ routes.cart_url }}" class="custom-header__cart">
+        <cart-icon-component class="custom-header__cart-icon-wrapper">
+          <span class="custom-header__cart-icon">
+            <img
+              src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
+              alt=""
+              width="28"
+              height="28"
+              aria-hidden="true"
+            >
+          </span>
+          {% render 'cart-bubble', live_region: true %}
+        </cart-icon-component>
+        <span class="custom-header__cart-text">Cart</span>
+      </a>
+    </div>
+
+    {%- comment -%} MOBILE layout {%- endcomment -%}
+    <div class="custom-header__mobile">
+      <button
+        class="custom-header__mobile-menu-btn button-unstyled"
+        aria-label="Open menu"
+        type="button"
+        on:click="#header-drawer/showDialog"
+        aria-haspopup="dialog"
+      >
+        <img
+          src="{{ 'menu-streamline-sharp-material-symbols.svg' | asset_url }}"
+          alt=""
+          width="28"
+          height="28"
+          aria-hidden="true"
+        >
+      </button>
+
+      <a href="{{ routes.root_url }}" class="custom-header__logo-link" aria-label="{{ shop.name }}">
+        <img
+          src="{{ 'shop-logo-2.svg' | asset_url }}"
+          alt="{{ shop.name }}"
+          width="148"
+          height="20"
+          loading="eager"
+          class="custom-header__logo"
+        >
+      </a>
+
+      <div class="custom-header__mobile-actions">
+        <button
+          class="custom-header__mobile-search-btn button-unstyled"
+          on:click="#search-modal/showDialog"
+          aria-label="{{ 'content.search_input_label' | t }}"
+          aria-haspopup="dialog"
+          type="button"
+        >
+          <img
+            src="{{ 'search-streamline-sharp-streamline-material-free.svg' | asset_url }}"
+            alt=""
+            width="20"
+            height="20"
+            aria-hidden="true"
+          >
+        </button>
+
+        <a href="{{ routes.cart_url }}" class="custom-header__mobile-cart">
+          <cart-icon-component>
+            <img
+              src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
+              alt="{{ 'accessibility.cart_count' | t }}"
+              width="28"
+              height="28"
+            >
+            {% render 'cart-bubble' %}
+          </cart-icon-component>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .custom-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+    padding-block: 12px;
+    padding-inline: var(--padding-2xl, 64px);
+  }
+
+  .custom-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--narrow-page-width, 90rem);
+    margin-inline: auto;
+    gap: 24px;
+  }
+
+  .custom-header__mobile {
+    display: none;
+  }
+
+  /* Logo */
+  .custom-header__logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .custom-header__logo {
+    display: block;
+  }
+
+  /* Search */
+  .custom-header__center {
+    flex: 1;
+    max-width: 534px;
+  }
+
+  .custom-header__search-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+    cursor: pointer;
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: start;
+    appearance: none;
+  }
+
+  .custom-header__search-input:hover {
+    border-color: #bbbbbb;
+  }
+
+  .custom-header__search-placeholder {
+    flex: 1;
+    color: #767676;
+    pointer-events: none;
+  }
+
+  .custom-header__search-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  /* Right actions */
+  .custom-header__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .custom-header__quiz-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #141414;
+    background-color: #ffffff;
+    color: #141414;
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    line-height: 1.25;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .custom-header__quiz-btn:hover {
+    background-color: #f5f5f5;
+  }
+
+  .custom-header__flag {
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-header__sign-in {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    color: #141414;
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    line-height: 1.43;
+  }
+
+  .custom-header__sign-in:hover {
+    text-decoration: underline;
+  }
+
+  .custom-header__sign-in-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-header__cart {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    color: #141414;
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    line-height: 1.43;
+  }
+
+  .custom-header__cart:hover {
+    text-decoration: underline;
+  }
+
+  .custom-header__cart-icon-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .custom-header__cart-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 749px) {
+    .custom-header {
+      padding-inline: var(--padding-md, 16px);
+    }
+
+    .custom-header__left,
+    .custom-header__center,
+    .custom-header__right {
+      display: none;
+    }
+
+    .custom-header__mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 12px;
+    }
+
+    .custom-header__mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .custom-header__mobile-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .custom-header__mobile-search-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .custom-header__mobile-cart {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.custom_header",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "quiz_text",
+      "label": "t:settings.quiz_text",
+      "default": "Take Quiz"
+    },
+    {
+      "type": "url",
+      "id": "quiz_link",
+      "label": "t:settings.quiz_link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "t:settings.enable_sticky",
+      "default": true
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

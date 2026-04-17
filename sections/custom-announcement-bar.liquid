@@ -1,0 +1,137 @@
+<div
+  class="custom-announcement-bar color-{{ section.settings.color_scheme }}"
+  style="
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="custom-announcement-bar__inner">
+    <div class="custom-announcement-bar__left">
+      {%- if section.settings.link_left != blank -%}
+        <a href="{{ section.settings.link_left }}" class="custom-announcement-bar__link">
+          {{ section.settings.text_left }}
+        </a>
+      {%- else -%}
+        <span>{{ section.settings.text_left }}</span>
+      {%- endif -%}
+    </div>
+    <div class="custom-announcement-bar__right">
+      {%- if section.settings.link_right != blank -%}
+        <a href="{{ section.settings.link_right }}" class="custom-announcement-bar__link custom-announcement-bar__link--underline">
+          {{ section.settings.text_right }}
+        </a>
+      {%- else -%}
+        <span class="custom-announcement-bar__link--underline">{{ section.settings.text_right }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .custom-announcement-bar {
+    background-color: #141414;
+    color: #ffffff;
+    padding-block-start: var(--section-padding-top, 5px);
+    padding-block-end: var(--section-padding-bottom, 5px);
+    padding-inline: var(--padding-2xl, 64px);
+  }
+
+  .custom-announcement-bar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--narrow-page-width, 90rem);
+    margin-inline: auto;
+  }
+
+  .custom-announcement-bar__left,
+  .custom-announcement-bar__right {
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    line-height: 1.43;
+  }
+
+  .custom-announcement-bar__link {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .custom-announcement-bar__link:hover {
+    text-decoration: underline;
+  }
+
+  .custom-announcement-bar__link--underline {
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 749px) {
+    .custom-announcement-bar {
+      padding-inline: var(--padding-md, 16px);
+    }
+
+    .custom-announcement-bar__left,
+    .custom-announcement-bar__right {
+      font-size: 0.75rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.custom_announcement_bar",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_left",
+      "label": "t:settings.text_left",
+      "default": "Your Shop Consultant is SHOP.COM"
+    },
+    {
+      "type": "url",
+      "id": "link_left",
+      "label": "t:settings.link_left"
+    },
+    {
+      "type": "text",
+      "id": "text_right",
+      "label": "t:settings.text_right",
+      "default": "Start Your SHOP.COM Business"
+    },
+    {
+      "type": "url",
+      "id": "link_right",
+      "label": "t:settings.link_right"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:settings.top_padding",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 5,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:settings.bottom_padding",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 5,
+      "unit": "px"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}
