@@ -1,8 +1,5 @@
 <script src="{{ 'cart-icon.js' | asset_url }}" type="module"></script>
 <script src="{{ 'dialog.js' | asset_url }}" type="module"></script>
-{%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
-  <script src="{{ 'cart-drawer.js' | asset_url }}" type="module" fetchpriority="low"></script>
-{%- endif -%}
 
 {%- liquid
   assign show_country = false
@@ -113,149 +110,12 @@
         </div>
       {%- endif -%}
 
-      {%- comment -%} Sign In — uses Shopify's built-in account widget {%- endcomment -%}
-      {%- if shop.customer_accounts_enabled -%}
-        <div class="account-button custom-header__account color-{{ settings.popover_color_scheme }}">
-          <shopify-account menu="{{ section.settings.customer_account_menu }}">
-            {%- if customer -%}
-              <div class="account-button__fallback"></div>
-            {%- else -%}
-              <span slot="signed-out-avatar" class="custom-header__sign-in-slot">
-                <span class="custom-header__sign-in-icon">
-                  <img
-                    src="{{ 'frame-663.svg' | asset_url }}"
-                    alt=""
-                    width="20"
-                    height="20"
-                    aria-hidden="true"
-                  >
-                </span>
-                <span class="custom-header__sign-in-text">Sign in</span>
-              </span>
-            {%- endif -%}
-          </shopify-account>
-        </div>
-      {%- else -%}
-        <a href="{{ routes.account_url }}" class="custom-header__sign-in">
-          <span class="custom-header__sign-in-icon">
-            <img
-              src="{{ 'frame-663.svg' | asset_url }}"
-              alt=""
-              width="20"
-              height="20"
-              aria-hidden="true"
-            >
-          </span>
-          <span class="custom-header__sign-in-text">Sign in</span>
-        </a>
-      {%- endif -%}
-
-      {%- comment -%} Cart — opens cart drawer when drawer mode is enabled {%- endcomment -%}
-      {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
-        {%- capture empty_cart_drawer_content -%}
-          <div class="cart-drawer__header">
-            <button
-              ref="closeButton"
-              on:click="cart-drawer-component/close"
-              class="button close-button cart-drawer__close-button button-unstyled"
-              aria-label="{{ 'actions.close_dialog' | t }}"
-            >
-              <span class="svg-wrapper">{{- 'icon-close.svg' | inline_asset_content -}}</span>
-            </button>
-          </div>
-          <div class="cart-drawer__content" aria-label="{{ 'accessibility.cart' | t }}">
-            <h2 class="cart-drawer__heading h4 cart-drawer__heading--empty" id="cart-drawer-heading-empty">
-              {{ 'content.your_cart_is_empty' | t }}
-            </h2>
-            <div class="cart-drawer__items">
-              {% render 'cart-products', force_empty: true %}
-            </div>
-          </div>
-        {%- endcapture -%}
-        <cart-drawer-component
-          id="ma-cart-drawer"
-          class="custom-header__cart-drawer"
-          {% if settings.auto_open_cart_drawer %}auto-open{% endif %}
-        >
-          <button
-            class="custom-header__cart button-unstyled"
-            on:click="/open"
-            type="button"
-            aria-haspopup="dialog"
-            aria-label="{{ 'accessibility.cart' | t }}"
-            aria-describedby="cart-bubble-text"
-          >
-            <cart-icon-component class="custom-header__cart-icon-wrapper">
-              <span class="custom-header__cart-icon">
-                <img
-                  src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
-                  alt=""
-                  width="28"
-                  height="28"
-                  aria-hidden="true"
-                >
-              </span>
-              {% render 'cart-bubble', live_region: true %}
-            </cart-icon-component>
-            <span class="custom-header__cart-text">Cart</span>
-          </button>
-          <template id="empty-cart-template">{{ empty_cart_drawer_content }}</template>
-          <dialog
-            ref="dialog"
-            class="cart-drawer__dialog dialog-modal dialog-drawer color-{{ settings.drawer_color_scheme }}{% if cart.empty? %} cart-drawer--empty{% endif %}"
-            aria-labelledby="{% if cart.empty? %}cart-drawer-heading-empty{% else %}cart-drawer-heading{% endif %}"
-            scroll-lock
-            cart-summary-sticky="true"
-          >
-            <div class="cart-drawer__inner" data-hydration-key="cart-drawer-inner">
-              <cart-items-component class="cart-items-component" data-drawer data-section-id="{{ section.id }}">
-                {%- if cart.empty? -%}
-                  {{ empty_cart_drawer_content }}
-                {%- else -%}
-                  <div class="cart-drawer__header" id="cart-drawer-header">
-                    <h2 class="cart-drawer__heading h4" id="cart-drawer-heading">
-                      {{ 'content.cart_title' | t }}
-                      {% render 'cart-bubble' %}
-                    </h2>
-                    <button
-                      ref="closeButton"
-                      on:click="cart-drawer-component/close"
-                      class="button close-button cart-drawer__close-button button-unstyled"
-                      aria-label="{{ 'actions.close_dialog' | t }}"
-                    >
-                      <span class="svg-wrapper">{{- 'icon-close.svg' | inline_asset_content -}}</span>
-                    </button>
-                  </div>
-                  <scroll-hint class="cart-drawer__content" aria-label="{{ 'accessibility.cart' | t }}" style="--header-height: 60px;">
-                    <scroll-hint class="cart-drawer__items">
-                      {% render 'cart-products', drawer_context: 'drawer' %}
-                    </scroll-hint>
-                    <div class="cart-drawer__summary">
-                      {% render 'cart-summary', section_id: section.id %}
-                    </div>
-                  </scroll-hint>
-                {%- endif -%}
-              </cart-items-component>
-            </div>
-          </dialog>
-        </cart-drawer-component>
-      {%- else -%}
-        <a href="{{ routes.cart_url }}" class="custom-header__cart">
-          <cart-icon-component class="custom-header__cart-icon-wrapper">
-            <span class="custom-header__cart-icon">
-              <img
-                src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
-                alt=""
-                width="28"
-                height="28"
-                aria-hidden="true"
-              >
-            </span>
-            {% render 'cart-bubble', live_region: true %}
-          </cart-icon-component>
-          <span class="custom-header__cart-text">Cart</span>
-        </a>
-      {%- endif -%}
+      {%- comment -%} Sign In + Cart — native header-actions snippet (brings cart drawer + account widget with all CSS) {%- endcomment -%}
+      {%- render 'header-actions',
+        customer_account_menu: section.settings.customer_account_menu,
+        display_style: 'text',
+        section: section
+      -%}
     </div>
 
     {%- comment -%} MOBILE layout {%- endcomment -%}
@@ -304,38 +164,17 @@
           >
         </button>
 
-        {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
-          <button
-            class="custom-header__mobile-cart button-unstyled"
-            on:click="#ma-cart-drawer/open"
-            type="button"
-            aria-haspopup="dialog"
-            aria-label="{{ 'accessibility.cart' | t }}"
-          >
-            <cart-icon-component>
-              <img
-                src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
-                alt=""
-                width="28"
-                height="28"
-                aria-hidden="true"
-              >
-              {% render 'cart-bubble' %}
-            </cart-icon-component>
-          </button>
-        {%- else -%}
-          <a href="{{ routes.cart_url }}" class="custom-header__mobile-cart">
-            <cart-icon-component>
-              <img
-                src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
-                alt="{{ 'accessibility.cart_count' | t }}"
-                width="28"
-                height="28"
-              >
-              {% render 'cart-bubble' %}
-            </cart-icon-component>
-          </a>
-        {%- endif -%}
+        <a href="{{ routes.cart_url }}" class="custom-header__mobile-cart">
+          <cart-icon-component>
+            <img
+              src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
+              alt="{{ 'accessibility.cart_count' | t }}"
+              width="28"
+              height="28"
+            >
+            {% render 'cart-bubble' %}
+          </cart-icon-component>
+        </a>
       </div>
     </div>
   </div>
@@ -462,87 +301,28 @@
     border-radius: 50%;
   }
 
-  /* Account / Sign in */
-  .custom-header__account {
+  /* Native header-actions within custom header */
+  .custom-header__right header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .custom-header__right .header-actions__action {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #141414;
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    line-height: 1.43;
+  }
+
+  .custom-header__right .account-button {
     background: transparent;
-    display: flex;
-    align-items: center;
   }
 
-  .custom-header__account shopify-account {
-    --shopify-account-font-heading: var(--font-heading--family);
-    --shopify-account-font-heading-weight: var(--font-heading--weight);
-    --shopify-account-font-body: var(--font-body--family);
-    --shopify-account-font-body-weight: var(--font-body--weight);
-    --shopify-account-radius-base: var(--style-border-radius-popover);
-    --shopify-account-radius-button: var(--style-border-radius-buttons-primary);
-    --shopify-account-radius-button-small: var(--style-border-radius-buttons-primary);
-    --shopify-account-radius-input: var(--style-border-radius-buttons-primary);
-    --shopify-account-color-background: var(--color-background);
-    --shopify-account-color-text: var(--color-foreground);
-    --shopify-account-color-accent: var(--color-primary-button-background);
-    --shopify-account-color-accent-text: var(--color-primary-button-text);
-  }
-
-  .custom-header__sign-in-slot {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: #141414;
-    font-family: var(--font-body--family);
-    font-size: 0.875rem;
-    line-height: 1.43;
-  }
-
-  .custom-header__sign-in {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    text-decoration: none;
-    color: #141414;
-    font-family: var(--font-body--family);
-    font-size: 0.875rem;
-    line-height: 1.43;
-  }
-
-  .custom-header__sign-in:hover {
-    text-decoration: underline;
-  }
-
-  .custom-header__sign-in-icon {
-    display: flex;
-    align-items: center;
-  }
-
-  /* Cart drawer wrapper — inline with other actions */
-  .custom-header__cart-drawer {
-    display: flex;
-    align-items: center;
-  }
-
-  /* Cart */
-  .custom-header__cart {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    text-decoration: none;
-    color: #141414;
-    font-family: var(--font-body--family);
-    font-size: 0.875rem;
-    line-height: 1.43;
-  }
-
-  .custom-header__cart:hover {
-    text-decoration: underline;
-  }
-
-  .custom-header__cart-icon-wrapper {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .custom-header__cart-icon {
+  .custom-header__right .cart-drawer {
     display: flex;
     align-items: center;
   }
