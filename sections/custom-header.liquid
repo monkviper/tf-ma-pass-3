@@ -1,17 +1,6 @@
 <script src="{{ 'cart-icon.js' | asset_url }}" type="module"></script>
 <script src="{{ 'dialog.js' | asset_url }}" type="module"></script>
 
-{%- liquid
-  assign show_country = false
-  if localization.available_countries.size > 1
-    assign show_country = true
-  endif
-  assign show_language = false
-  if localization.available_languages.size > 1
-    assign show_language = true
-  endif
--%}
-
 <div
   class="custom-header color-{{ section.settings.color_scheme }}"
   style="
@@ -67,55 +56,47 @@
         {{ section.settings.quiz_text }}
       </a>
 
-      {%- comment -%} Flag / Localization market dropdown {%- endcomment -%}
-      {%- if show_country or show_language -%}
-        <dropdown-localization-component class="custom-header__flag">
-          <button
-            type="button"
-            class="button-unstyled custom-header__flag-btn"
-            aria-expanded="false"
-            ref="button"
-            on:click="/toggleSelector"
-          >
-            <span
-              class="custom-header__flag-icon icon-flag"
-              style="background-image: url({{ localization.country | image_url: width: 32 }});"
-            ></span>
-            <span class="visually-hidden">
-              {{- 'accessibility.localization_region_and_language' | t -}}
-            </span>
-          </button>
-          <div
-            class="localization-wrapper right-bound color-{{ settings.popover_color_scheme }}"
-            hidden
-            ref="panel"
-          >
-            {%- render 'localization-form',
-              show_country: show_country,
-              show_language: show_language,
-              localization_style: 'dropdown',
-              form_id: section.id
-            -%}
-          </div>
-        </dropdown-localization-component>
-      {%- else -%}
-        <div class="custom-header__flag">
-          <img
-            src="{{ 'us-united-states-streamline-flagpack.svg' | asset_url }}"
-            alt="US"
-            width="18"
-            height="18"
-            loading="eager"
-          >
-        </div>
-      {%- endif -%}
+      {%- comment -%} Flag / Localization {%- endcomment -%}
+      <div class="custom-header__flag">
+        <img
+          src="{{ 'us-united-states-streamline-flagpack.svg' | asset_url }}"
+          alt="US"
+          width="18"
+          height="18"
+          loading="eager"
+        >
+      </div>
 
-      {%- comment -%} Sign In + Cart — native header-actions snippet (brings cart drawer + account widget with all CSS) {%- endcomment -%}
-      {%- render 'header-actions',
-        customer_account_menu: section.settings.customer_account_menu,
-        display_style: 'text',
-        section: section
-      -%}
+      {%- comment -%} Sign In {%- endcomment -%}
+      <a href="{{ routes.account_url }}" class="custom-header__sign-in">
+        <span class="custom-header__sign-in-icon">
+          <img
+            src="{{ 'frame-663.svg' | asset_url }}"
+            alt=""
+            width="20"
+            height="20"
+            aria-hidden="true"
+          >
+        </span>
+        <span class="custom-header__sign-in-text">Sign in</span>
+      </a>
+
+      {%- comment -%} Cart {%- endcomment -%}
+      <a href="{{ routes.cart_url }}" class="custom-header__cart">
+        <cart-icon-component class="custom-header__cart-icon-wrapper">
+          <span class="custom-header__cart-icon">
+            <img
+              src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
+              alt=""
+              width="28"
+              height="28"
+              aria-hidden="true"
+            >
+          </span>
+          {% render 'cart-bubble', live_region: true %}
+        </cart-icon-component>
+        <span class="custom-header__cart-text">Cart</span>
+      </a>
     </div>
 
     {%- comment -%} MOBILE layout {%- endcomment -%}
@@ -280,59 +261,55 @@
     background-color: #f5f5f5;
   }
 
-  /* Flag / localization */
   .custom-header__flag {
     display: flex;
     align-items: center;
   }
 
-  .custom-header__flag-btn {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .custom-header__flag-icon {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-  }
-
-  /* Native header-actions within custom header */
-  .custom-header__right header-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .custom-header__right .header-actions__action {
+  .custom-header__sign-in {
     display: flex;
     align-items: center;
     gap: 4px;
+    text-decoration: none;
     color: #141414;
     font-family: var(--font-body--family);
     font-size: 0.875rem;
     line-height: 1.43;
   }
 
-  .custom-header__right .account-button {
-    background: transparent;
+  .custom-header__sign-in:hover {
+    text-decoration: underline;
   }
 
-  .custom-header__right .cart-drawer {
+  .custom-header__sign-in-icon {
     display: flex;
     align-items: center;
   }
 
-  /* Force icons visible alongside text — text mode hides icons on desktop */
-  @media screen and (min-width: 750px) {
-    .custom-header__right header-actions .desktop\:hidden {
-      display: inline-flex !important;
-      align-items: center;
-    }
+  .custom-header__cart {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    color: #141414;
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    line-height: 1.43;
+  }
+
+  .custom-header__cart:hover {
+    text-decoration: underline;
+  }
+
+  .custom-header__cart-icon-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .custom-header__cart-icon {
+    display: flex;
+    align-items: center;
   }
 
   /* Mobile */
@@ -404,12 +381,6 @@
       "type": "url",
       "id": "quiz_link",
       "label": "t:settings.quiz_link"
-    },
-    {
-      "type": "link_list",
-      "id": "customer_account_menu",
-      "label": "t:settings.menu",
-      "default": "customer-account-main-menu"
     },
     {
       "type": "color_scheme",
