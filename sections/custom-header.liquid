@@ -113,7 +113,7 @@
       {%- comment -%} Sign In + Cart — native header-actions snippet (brings cart drawer + account widget with all CSS) {%- endcomment -%}
       {%- render 'header-actions',
         customer_account_menu: section.settings.customer_account_menu,
-        display_style: 'icon',
+        display_style: 'text',
         section: section
       -%}
     </div>
@@ -325,6 +325,14 @@
   .custom-header__right .cart-drawer {
     display: flex;
     align-items: center;
+  }
+
+  /* Force icons visible alongside text — text mode hides icons on desktop */
+  @media screen and (min-width: 750px) {
+    .custom-header__right header-actions .desktop\:hidden {
+      display: inline-flex !important;
+      align-items: center;
+    }
   }
 
   /* Mobile */
