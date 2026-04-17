@@ -74,19 +74,42 @@
         >
       </div>
 
-      {%- comment -%} Sign In {%- endcomment -%}
-      <a href="{{ routes.account_url }}" class="custom-header__sign-in">
-        <span class="custom-header__sign-in-icon">
-          <img
-            src="{{ 'frame-663.svg' | asset_url }}"
-            alt=""
-            width="20"
-            height="20"
-            aria-hidden="true"
-          >
-        </span>
-        <span class="custom-header__sign-in-text">Sign in</span>
-      </a>
+      {%- comment -%} Sign In — Shopify account widget with custom icon {%- endcomment -%}
+      {%- if shop.customer_accounts_enabled -%}
+        <div class="account-button custom-header__sign-in color-{{ settings.popover_color_scheme }}">
+          <shopify-account>
+            {%- if customer -%}
+              <div class="account-button__fallback"></div>
+            {%- else -%}
+              <span slot="signed-out-avatar" class="custom-header__sign-in-slot">
+                <span class="custom-header__sign-in-icon">
+                  <img
+                    src="{{ 'frame-663.svg' | asset_url }}"
+                    alt=""
+                    width="20"
+                    height="20"
+                    aria-hidden="true"
+                  >
+                </span>
+                <span class="custom-header__sign-in-text">Sign in</span>
+              </span>
+            {%- endif -%}
+          </shopify-account>
+        </div>
+      {%- else -%}
+        <a href="{{ routes.account_url }}" class="custom-header__sign-in">
+          <span class="custom-header__sign-in-icon">
+            <img
+              src="{{ 'frame-663.svg' | asset_url }}"
+              alt=""
+              width="20"
+              height="20"
+              aria-hidden="true"
+            >
+          </span>
+          <span class="custom-header__sign-in-text">Sign in</span>
+        </a>
+      {%- endif -%}
 
       {%- comment -%} Cart {%- endcomment -%}
       {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
@@ -344,6 +367,26 @@
   }
 
   .custom-header__sign-in-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-header__sign-in-slot {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+
+  .custom-header__sign-in-text {
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    line-height: 1.43;
+    color: #141414;
+  }
+
+  /* Shopify account widget — match header style */
+  .custom-header__sign-in shopify-account {
     display: flex;
     align-items: center;
   }
