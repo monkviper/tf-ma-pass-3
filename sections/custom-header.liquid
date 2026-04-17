@@ -1,6 +1,13 @@
 <script src="{{ 'cart-icon.js' | asset_url }}" type="module"></script>
 <script src="{{ 'dialog.js' | asset_url }}" type="module"></script>
 
+{%- comment -%} Hidden host for cart drawer — brings the component + all its CSS {%- endcomment -%}
+{%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+  <div class="custom-header__drawer-host">
+    {%- render 'header-actions', display_style: 'icon', section: section -%}
+  </div>
+{%- endif -%}
+
 <div
   class="custom-header color-{{ section.settings.color_scheme }}"
   style="
@@ -82,21 +89,45 @@
       </a>
 
       {%- comment -%} Cart {%- endcomment -%}
-      <a href="{{ routes.cart_url }}" class="custom-header__cart">
-        <cart-icon-component class="custom-header__cart-icon-wrapper">
-          <span class="custom-header__cart-icon">
-            <img
-              src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
-              alt=""
-              width="28"
-              height="28"
-              aria-hidden="true"
-            >
-          </span>
-          {% render 'cart-bubble', live_region: true %}
-        </cart-icon-component>
-        <span class="custom-header__cart-text">Cart</span>
-      </a>
+      {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+        <button
+          type="button"
+          class="custom-header__cart button-unstyled"
+          aria-haspopup="dialog"
+          aria-label="{{ 'accessibility.cart' | t }}"
+          onclick="document.querySelector('cart-drawer-component')?.open()"
+        >
+          <cart-icon-component class="custom-header__cart-icon-wrapper">
+            <span class="custom-header__cart-icon">
+              <img
+                src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
+                alt=""
+                width="28"
+                height="28"
+                aria-hidden="true"
+              >
+            </span>
+            {% render 'cart-bubble', live_region: true %}
+          </cart-icon-component>
+          <span class="custom-header__cart-text">Cart</span>
+        </button>
+      {%- else -%}
+        <a href="{{ routes.cart_url }}" class="custom-header__cart">
+          <cart-icon-component class="custom-header__cart-icon-wrapper">
+            <span class="custom-header__cart-icon">
+              <img
+                src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
+                alt=""
+                width="28"
+                height="28"
+                aria-hidden="true"
+              >
+            </span>
+            {% render 'cart-bubble', live_region: true %}
+          </cart-icon-component>
+          <span class="custom-header__cart-text">Cart</span>
+        </a>
+      {%- endif -%}
     </div>
 
     {%- comment -%} MOBILE layout {%- endcomment -%}
@@ -145,23 +176,54 @@
           >
         </button>
 
-        <a href="{{ routes.cart_url }}" class="custom-header__mobile-cart">
-          <cart-icon-component>
-            <img
-              src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
-              alt="{{ 'accessibility.cart_count' | t }}"
-              width="28"
-              height="28"
-            >
-            {% render 'cart-bubble' %}
-          </cart-icon-component>
-        </a>
+        {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+          <button
+            type="button"
+            class="custom-header__mobile-cart button-unstyled"
+            aria-haspopup="dialog"
+            aria-label="{{ 'accessibility.cart' | t }}"
+            onclick="document.querySelector('cart-drawer-component')?.open()"
+          >
+            <cart-icon-component>
+              <img
+                src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
+                alt=""
+                width="28"
+                height="28"
+                aria-hidden="true"
+              >
+              {% render 'cart-bubble' %}
+            </cart-icon-component>
+          </button>
+        {%- else -%}
+          <a href="{{ routes.cart_url }}" class="custom-header__mobile-cart">
+            <cart-icon-component>
+              <img
+                src="{{ 'shopping-bag-streamline-outlined-material-symbols.svg' | asset_url }}"
+                alt="{{ 'accessibility.cart_count' | t }}"
+                width="28"
+                height="28"
+              >
+              {% render 'cart-bubble' %}
+            </cart-icon-component>
+          </a>
+        {%- endif -%}
       </div>
     </div>
   </div>
 </div>
 
 {% stylesheet %}
+  /* Hidden host — renders header-actions for cart drawer + CSS only */
+  .custom-header__drawer-host {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+  }
+
   .custom-header {
     background-color: #ffffff;
     border-bottom: 1px solid #dddddd;
