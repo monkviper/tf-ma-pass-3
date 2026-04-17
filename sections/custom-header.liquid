@@ -64,15 +64,49 @@
       </a>
 
       {%- comment -%} Flag / Localization {%- endcomment -%}
-      <div class="custom-header__flag">
-        <img
-          src="{{ 'us-united-states-streamline-flagpack.svg' | asset_url }}"
-          alt="US"
-          width="18"
-          height="18"
-          loading="eager"
-        >
-      </div>
+      {%- if localization.available_countries.size > 1 -%}
+        <dropdown-localization-component class="dropdown-localization custom-header__localization">
+          <button
+            type="button"
+            class="custom-header__flag-btn button-unstyled"
+            aria-expanded="false"
+            aria-controls="custom-header-localization-results"
+            ref="button"
+            on:click="/toggleSelector"
+          >
+            <span
+              class="custom-header__flag-icon"
+              style="background-image: url({{- localization.country | image_url: width: 32 }});"
+            ></span>
+            <span class="visually-hidden">
+              {{- 'accessibility.localization_region_and_language' | t -}}
+            </span>
+          </button>
+
+          <div
+            class="localization-wrapper right-bound color-{{ settings.popover_color_scheme }}"
+            hidden
+            ref="panel"
+          >
+            {%- render 'localization-form',
+              show_country: true,
+              show_language: false,
+              localization_style: 'dropdown',
+              form_id: section.id
+            -%}
+          </div>
+        </dropdown-localization-component>
+      {%- else -%}
+        <div class="custom-header__flag">
+          <img
+            src="{{ 'us-united-states-streamline-flagpack.svg' | asset_url }}"
+            alt="US"
+            width="18"
+            height="18"
+            loading="eager"
+          >
+        </div>
+      {%- endif -%}
 
       {%- comment -%} Sign In — Shopify account widget with custom icon {%- endcomment -%}
       {%- if shop.customer_accounts_enabled -%}
@@ -349,6 +383,62 @@
   .custom-header__flag {
     display: flex;
     align-items: center;
+  }
+
+  /* Localization dropdown */
+  .custom-header__localization {
+    position: relative;
+  }
+
+  .custom-header__flag-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+
+  .custom-header__flag-icon {
+    width: 18px;
+    height: 18px;
+    clip-path: circle(50%);
+    background-position: center;
+    background-size: cover;
+    display: block;
+  }
+
+  .custom-header__localization .localization-wrapper {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: calc(var(--layer-header-menu, 100) + 1);
+    box-shadow: var(--shadow-popover, 0 4px 20px rgba(0, 0, 0, 0.1));
+    border: var(--style-border-popover, 1px solid #ddd);
+    background-color: var(--color-background, #fff);
+    border-radius: var(--style-border-radius-popover, 8px);
+    max-height: 27.5rem;
+    transition-property: display, opacity, translate;
+    transition-duration: 0.3s;
+    transition-behavior: allow-discrete;
+    translate: 0 20px;
+    opacity: 0;
+  }
+
+  .custom-header__localization .localization-wrapper:not([hidden]) {
+    translate: 0 0;
+    opacity: 1;
+  }
+
+  @starting-style {
+    .custom-header__localization .localization-wrapper:not([hidden]) {
+      translate: 0 20px;
+      opacity: 0;
+    }
+  }
+
+  .custom-header__localization .localization-form__list {
+    max-height: 20.5rem;
   }
 
   .custom-header__sign-in {
