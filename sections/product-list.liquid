@@ -1,5 +1,9 @@
 {% liquid
   assign max_items = section.settings.max_products
+  assign has_featured_image = false
+  if section.settings.featured_image != blank
+    assign has_featured_image = true
+  endif
 %}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
@@ -12,15 +16,36 @@
     section-resource-list
     spacing-style
     gap-style
+    {% if has_featured_image %}has-featured-image{% endif %}
   "
   style="
     {% render 'spacing-style', settings: section.settings %}
     {% render 'gap-style', value: section.settings.gap %}
+    --featured-image-border-radius: {{ section.settings.featured_image_border_radius }}px;
   "
 >
   <div class="section-resource-list__header">
     {%- content_for 'block', type: '_product-list-content', id: 'static-header' -%}
   </div>
+
+  <div class="section-resource-list__featured-wrapper">
+    {% if has_featured_image %}
+      <div class="section-resource-list__featured-image">
+        {% if section.settings.featured_image_link != blank %}
+          <a href="{{ section.settings.featured_image_link }}">
+        {% endif %}
+          <img
+            src="{{ section.settings.featured_image | image_url: width: 660 }}"
+            alt="{{ section.settings.featured_image.alt | escape }}"
+            loading="lazy"
+            width="{{ section.settings.featured_image.width }}"
+            height="{{ section.settings.featured_image.height }}"
+          >
+        {% if section.settings.featured_image_link != blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
 
   {% capture list_items %}
     {% if section.settings.collection != blank and shop.products_count != 0 %}
@@ -69,6 +94,7 @@
     content_type: 'products',
     test_id: 'resource-list-grid'
   %}
+  </div>
 
   <div
     class="section-resource-list__content"
@@ -77,6 +103,66 @@
     {%- content_for 'blocks' -%}
   </div>
 </div>
+
+{% stylesheet %}
+  .section-resource-list__featured-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--featured-image-border-radius, 16px);
+  }
+
+  .section-resource-list__featured-image a {
+    display: block;
+    height: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-resource-list.has-featured-image .section-resource-list__featured-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .section-resource-list.has-featured-image .section-resource-list__featured-image {
+      flex-shrink: 0;
+      width: 328px;
+    }
+
+    .section-resource-list.has-featured-image .resource-list.force-full-width {
+      width: auto;
+      margin-inline-start: 0;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .section-resource-list.has-featured-image slideshow-arrows {
+      padding-inline: 0;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .section-resource-list.has-featured-image .section-resource-list__featured-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-resource-list.has-featured-image .section-resource-list__featured-image {
+      width: 100%;
+    }
+
+    .section-resource-list.has-featured-image .section-resource-list__featured-image img {
+      height: auto;
+      aspect-ratio: 358 / 133;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -258,6 +344,30 @@
       ],
       "default": "none",
       "visible_if": "{{ section.settings.icons_style != 'none' and section.settings.layout_type == 'carousel' or section.settings.carousel_on_mobile == true }}"
+    },
+    {
+      "type": "header",
+      "content": "t:content.featured_image"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "t:settings.image"
+    },
+    {
+      "type": "url",
+      "id": "featured_image_link",
+      "label": "t:settings.featured_image_link"
+    },
+    {
+      "type": "range",
+      "id": "featured_image_border_radius",
+      "label": "t:settings.border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "header",
