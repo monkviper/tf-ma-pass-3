@@ -24,8 +24,21 @@
     --featured-image-border-radius: {{ section.settings.featured_image_border_radius }}px;
   "
 >
-  <div class="section-resource-list__header">
-    {%- content_for 'block', type: '_product-list-content', id: 'static-header' -%}
+  <div class="section-resource-list__header-row">
+    <div class="section-resource-list__header">
+      {%- content_for 'block', type: '_product-list-content', id: 'static-header' -%}
+    </div>
+
+    {% if section.settings.layout_type == 'carousel' and section.settings.icons_style != 'none' %}
+      <div class="section-resource-list__nav-arrows" data-section-id="{{ section.id }}">
+        <button class="section-resource-list__nav-arrow button-unstyled flip-x" data-action="previous" aria-label="Previous">
+          <span class="svg-wrapper icon-caret">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+        </button>
+        <button class="section-resource-list__nav-arrow button-unstyled" data-action="next" aria-label="Next">
+          <span class="svg-wrapper icon-caret">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+        </button>
+      </div>
+    {% endif %}
   </div>
 
   <div class="section-resource-list__featured-wrapper">
@@ -112,7 +125,86 @@
   </div>
 </div>
 
+{% javascript %}
+  class ProductListNavArrows {
+    constructor(container) {
+      this.container = container;
+      this.sectionId = container.dataset.sectionId;
+      this.section = container.closest('.section-resource-list');
+      this.slideshow = this.section?.querySelector('slideshow-component');
+
+      for (const btn of container.querySelectorAll('.section-resource-list__nav-arrow')) {
+        btn.addEventListener('click', () => {
+          if (!this.slideshow) return;
+          const action = btn.dataset.action;
+          if (action === 'previous' && typeof this.slideshow.previous === 'function') {
+            this.slideshow.previous();
+          } else if (action === 'next' && typeof this.slideshow.next === 'function') {
+            this.slideshow.next();
+          }
+        });
+      }
+    }
+  }
+
+  for (const el of document.querySelectorAll('.section-resource-list__nav-arrows')) {
+    new ProductListNavArrows(el);
+  }
+{% endjavascript %}
+
 {% stylesheet %}
+  .section-resource-list__header-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+  }
+
+  .section-resource-list__header-row .section-resource-list__header {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .section-resource-list__nav-arrows {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .section-resource-list__nav-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    cursor: pointer;
+    color: rgb(var(--color-foreground));
+    background: none;
+    border: none;
+  }
+
+  .section-resource-list__nav-arrow:hover {
+    opacity: 0.7;
+  }
+
+  .section-resource-list__nav-arrow .icon-caret {
+    rotate: -90deg;
+  }
+
+  .section-resource-list__nav-arrow[disabled] {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .section-resource-list slideshow-arrows {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .section-resource-list__nav-arrows {
+      display: none;
+    }
+  }
+
   .section-resource-list__featured-image img {
     display: block;
     width: 100%;

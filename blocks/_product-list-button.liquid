@@ -3,6 +3,8 @@
 
 {% if button_collection.products_count > section.settings.max_products %}
   {% render 'button', link: button_url %}
+{% elsif block.settings.label != blank and button_collection == blank %}
+  {% render 'button', link: '#' %}
 {% endif %}
 
 {% schema %}
