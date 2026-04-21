@@ -2456,6 +2456,9 @@
               "name": "t:names.collection_title",
               "settings": {
                 "text": "<h3>Top Beauty</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "custom",
                 "font": "var(--font-heading--family)",
                 "font_size": "clamp(1.5rem, 3.5vw, 2.25rem)",
@@ -2463,9 +2466,6 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -2486,7 +2486,10 @@
               }
             }
           },
-          "block_order": ["product_list_text", "product_list_button"]
+          "block_order": [
+            "product_list_text",
+            "product_list_button"
+          ]
         },
         "static-product-card": {
           "type": "_product-card",
@@ -2568,23 +2571,25 @@
               }
             }
           },
-          "block_order": ["product-card-gallery", "product_title", "price"]
+          "block_order": [
+            "product-card-gallery",
+            "product_title",
+            "price"
+          ]
         }
       },
-      "block_order": [],
       "settings": {
         "collection": "",
         "layout_type": "carousel",
         "max_products": 8,
         "columns": 4,
-        "columns_gap": 24,
         "mobile_card_size": "44cqw",
+        "columns_gap": 24,
         "icons_style": "chevron",
         "icons_shape": "none",
         "section_width": "page-width",
         "gap": 32,
         "color_scheme": "scheme-1",
-        "featured_image_border_radius": 16,
         "padding-block-start": 64,
         "padding-block-end": 64
       }
