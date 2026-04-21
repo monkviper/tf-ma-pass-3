@@ -2585,6 +2585,8 @@
         "columns": 4,
         "mobile_card_size": "44cqw",
         "columns_gap": 24,
+        "featured_image_asset": "product-grid-featured.png",
+        "featured_image_border_radius": 16,
         "icons_style": "chevron",
         "icons_shape": "none",
         "section_width": "page-width",

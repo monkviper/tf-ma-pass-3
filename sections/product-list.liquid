@@ -1,7 +1,7 @@
 {% liquid
   assign max_items = section.settings.max_products
   assign has_featured_image = false
-  if section.settings.featured_image != blank
+  if section.settings.featured_image != blank or section.settings.featured_image_asset != blank
     assign has_featured_image = true
   endif
 %}
@@ -34,13 +34,21 @@
         {% if section.settings.featured_image_link != blank %}
           <a href="{{ section.settings.featured_image_link }}">
         {% endif %}
-          <img
-            src="{{ section.settings.featured_image | image_url: width: 660 }}"
-            alt="{{ section.settings.featured_image.alt | escape }}"
-            loading="lazy"
-            width="{{ section.settings.featured_image.width }}"
-            height="{{ section.settings.featured_image.height }}"
-          >
+          {% if section.settings.featured_image != blank %}
+            <img
+              src="{{ section.settings.featured_image | image_url: width: 660 }}"
+              alt="{{ section.settings.featured_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.featured_image.width }}"
+              height="{{ section.settings.featured_image.height }}"
+            >
+          {% elsif section.settings.featured_image_asset != blank %}
+            <img
+              src="{{ section.settings.featured_image_asset | asset_url }}"
+              alt="Featured image"
+              loading="lazy"
+            >
+          {% endif %}
         {% if section.settings.featured_image_link != blank %}
           </a>
         {% endif %}
@@ -353,6 +361,11 @@
       "type": "image_picker",
       "id": "featured_image",
       "label": "t:settings.image"
+    },
+    {
+      "type": "text",
+      "id": "featured_image_asset",
+      "label": "Image asset filename"
     },
     {
       "type": "url",
