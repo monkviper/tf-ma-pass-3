@@ -1,0 +1,55 @@
+{% doc %}
+  Product Gallery Badge
+
+  Renders an absolute-positioned badge overlay on the product media gallery.
+  Reads product.metafields.custom.badge_text (single_line_text_field).
+
+  @param {object} product - Product object (required)
+
+  @example
+  {% render 'product-gallery-badge', product: product %}
+{% enddoc %}
+
+{% liquid
+  assign badge_text = product.metafields.custom.badge_text.value
+  unless badge_text != blank
+    break
+  endunless
+%}
+
+<div class="product-gallery-badge">
+  <span class="product-gallery-badge__text">{{ badge_text }}</span>
+</div>
+
+{% stylesheet %}
+  .product-gallery-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+    background-color: #E3FCB8;
+    border: 1px solid #141414;
+    border-radius: 16px;
+    pointer-events: none;
+  }
+
+  .product-gallery-badge__text {
+    font-family: var(--font-accent--family);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    color: #141414;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-gallery-badge__text {
+      font-size: 12px;
+    }
+  }
+{% endstylesheet %}

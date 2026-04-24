@@ -1,0 +1,137 @@
+{% doc %}
+  Shipping USPs Block
+
+  Renders a horizontal row of icon+text USPs below the ATC button.
+
+  @example {% content_for 'block', type: 'shipping-usps', id: 'shipping-usps' %}
+{% enddoc %}
+
+{%- liquid
+  assign usp_1_text = block.settings.usp_1_text
+  assign usp_2_text = block.settings.usp_2_text
+-%}
+
+<div class="shipping-usps" {{ block.shopify_attributes }}>
+  {%- if usp_1_text != blank -%}
+    <div class="shipping-usp">
+      <span class="shipping-usp__icon">
+        {%- if block.settings.usp_1_icon == 'shipping' -%}
+          {{ 'delivery-delivery-shipment-packages.svg' | inline_asset_content }}
+        {%- else -%}
+          {{ 'shopping-ecommerce-package-return-goods.svg' | inline_asset_content }}
+        {%- endif -%}
+      </span>
+      <span class="shipping-usp__text">{{ usp_1_text }}</span>
+    </div>
+  {%- endif -%}
+  {%- if usp_2_text != blank -%}
+    <div class="shipping-usp">
+      <span class="shipping-usp__icon">
+        {%- if block.settings.usp_2_icon == 'shipping' -%}
+          {{ 'delivery-delivery-shipment-packages.svg' | inline_asset_content }}
+        {%- else -%}
+          {{ 'shopping-ecommerce-package-return-goods.svg' | inline_asset_content }}
+        {%- endif -%}
+      </span>
+      <span class="shipping-usp__text">{{ usp_2_text }}</span>
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .shipping-usps {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .shipping-usp {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .shipping-usp__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  .shipping-usp__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .shipping-usp__text {
+    font-family: var(--font-body--family);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-foreground);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.shipping_usps",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "usp_1_text",
+      "label": "USP 1 text",
+      "default": "Free shipping on orders over $125"
+    },
+    {
+      "type": "select",
+      "id": "usp_1_icon",
+      "label": "USP 1 icon",
+      "options": [
+        {
+          "value": "shipping",
+          "label": "Shipping"
+        },
+        {
+          "value": "returns",
+          "label": "Returns"
+        }
+      ],
+      "default": "shipping"
+    },
+    {
+      "type": "text",
+      "id": "usp_2_text",
+      "label": "USP 2 text",
+      "default": "Easy Returns"
+    },
+    {
+      "type": "select",
+      "id": "usp_2_icon",
+      "label": "USP 2 icon",
+      "options": [
+        {
+          "value": "shipping",
+          "label": "Shipping"
+        },
+        {
+          "value": "returns",
+          "label": "Returns"
+        }
+      ],
+      "default": "returns"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.shipping_usps",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

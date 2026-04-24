@@ -1,0 +1,81 @@
+{% doc %}
+  Selling Points Block
+
+  Renders a vertical list of checkmark USPs from product metafields.
+  Reads product.metafields.custom.selling_points (list.single_line_text_field).
+
+  @example {% content_for 'block', type: 'selling-points', id: 'selling-points' %}
+{% enddoc %}
+
+{%- liquid
+  assign product = closest.product
+  assign selling_points = product.metafields.custom.selling_points.value
+-%}
+
+{%- if selling_points != blank and selling_points.size > 0 -%}
+  <div class="selling-points" {{ block.shopify_attributes }}>
+    {%- for point in selling_points -%}
+      <div class="selling-point">
+        <span class="selling-point__icon">{{ 'check.svg' | inline_asset_content }}</span>
+        <span class="selling-point__text">{{ point }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .selling-points {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .selling-point {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .selling-point__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  .selling-point__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .selling-point__text {
+    font-family: var(--font-body--family);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 21px;
+    color: var(--color-foreground);
+  }
+
+  @media screen and (max-width: 749px) {
+    .selling-point__text {
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.selling_points",
+  "tag": null,
+  "settings": [],
+  "presets": [
+    {
+      "name": "t:names.selling_points",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

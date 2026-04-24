@@ -441,7 +441,13 @@
     "custom_subheader": "Custom subheader",
     "image_banner": "Image banner",
     "shop_by_brand": "Shop by Brand",
-    "brand_card": "Brand card"
+    "brand_card": "Brand card",
+    "selling_points": "Selling points",
+    "product_code": "Product code",
+    "cashback_info": "Cashback info",
+    "shipping_usps": "Shipping & returns",
+    "product_badges": "Product badges",
+    "curated_review": "Curated review"
   },
   "options": {
     "above_carousel": "Above carousel",

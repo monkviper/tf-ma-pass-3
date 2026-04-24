@@ -1,0 +1,193 @@
+{% doc %}
+  Curated Review Block
+
+  Renders a testimonial card from product.metafields.custom.curated_review
+  (metaobject_reference) with fields: review_text (display field),
+  reviewer_name, reviewer_image, verified, rating.
+
+  @example {% content_for 'block', type: 'curated-review', id: 'curated-review' %}
+{% enddoc %}
+
+{%- liquid
+  assign product = closest.product
+  assign review = product.metafields.custom.curated_review.value
+-%}
+
+{%- if review != blank -%}
+  <div class="curated-review" {{ block.shopify_attributes }}>
+    <div class="curated-review__content">
+      {%- if review.rating.value != blank -%}
+        <div class="curated-review__stars">
+          <img src="{{ 'stars-2.svg' | asset_url }}" alt="{{ review.rating.value }} stars" width="88" height="16" loading="lazy">
+        </div>
+      {%- endif -%}
+      {%- if review.review_text.value != blank -%}
+        <p class="curated-review__quote">{{ review.review_text.value }}</p>
+      {%- endif -%}
+      <div class="curated-review__author">
+        {%- if review.reviewer_image.value != blank -%}
+          <div class="curated-review__avatar">
+            {{ review.reviewer_image.value | image_url: width: 128 | image_tag: loading: 'lazy', alt: review.reviewer_name.value, class: 'curated-review__avatar-img' }}
+          </div>
+        {%- endif -%}
+        <div class="curated-review__author-info">
+          {%- if review.reviewer_name.value != blank -%}
+            <span class="curated-review__name">{{ review.reviewer_name.value }}</span>
+          {%- endif -%}
+          {%- if review.verified.value -%}
+            <div class="curated-review__verified">
+              <img src="{{ 'check-circle-2.svg' | asset_url }}" alt="" width="12" height="12" loading="lazy">
+              <span class="curated-review__verified-text">{{ 'blocks.curated_review.verified_buyer' | t }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    <div class="curated-review__dots" aria-hidden="true">
+      <span class="curated-review__dot curated-review__dot--active"></span>
+      <span class="curated-review__dot"></span>
+      <span class="curated-review__dot"></span>
+      <span class="curated-review__dot"></span>
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .curated-review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 32px 24px;
+    background-color: #F1F1F1;
+    border-radius: 16px;
+  }
+
+  .curated-review__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .curated-review__stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .curated-review__quote {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    color: var(--color-foreground);
+    margin: 0;
+    max-width: 460px;
+  }
+
+  .curated-review__author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .curated-review__avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .curated-review__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .curated-review__author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .curated-review__name {
+    font-family: var(--font-subheading--family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--color-foreground);
+  }
+
+  .curated-review__verified {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .curated-review__verified-text {
+    font-family: var(--font-body--family);
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    color: #767676;
+  }
+
+  .curated-review__dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .curated-review__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #C9C9C9;
+  }
+
+  .curated-review__dot--active {
+    background-color: #141414;
+  }
+
+  @media screen and (max-width: 749px) {
+    .curated-review__quote {
+      font-family: var(--font-subheading--family);
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 21px;
+    }
+
+    .curated-review__avatar {
+      width: 56px;
+      height: 56px;
+    }
+
+    .curated-review__name {
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    .curated-review__verified-text {
+      color: #555555;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.curated_review",
+  "tag": null,
+  "settings": [],
+  "presets": [
+    {
+      "name": "t:names.curated_review",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,90 @@
+{% doc %}
+  Cashback Info Block
+
+  Renders '{percentage}% [cashback-icon] Cashback' inline.
+  The percentage setting is bindable via dynamic source to a product metafield.
+
+  @example {% content_for 'block', type: 'cashback-info', id: 'cashback-info' %}
+{% enddoc %}
+
+{%- liquid
+  assign percentage = block.settings.percentage
+-%}
+
+{%- if percentage != blank -%}
+  <div class="cashback-info" {{ block.shopify_attributes }}>
+    <span class="cashback-info__percentage">{{ percentage }}%</span>
+    <span class="cashback-info__icon">{{ 'cashback-icon-3.svg' | inline_asset_content }}</span>
+    <span class="cashback-info__label">{{ 'blocks.cashback_info.label' | t }}</span>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .cashback-info {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .cashback-info__percentage,
+  .cashback-info__label {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: var(--color-foreground);
+  }
+
+  .cashback-info__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+  }
+
+  .cashback-info__icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .cashback-info__percentage,
+    .cashback-info__label {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .cashback-info__icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .cashback-info__icon svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.cashback_info",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "percentage",
+      "label": "Percentage",
+      "default": "2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.cashback_info",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

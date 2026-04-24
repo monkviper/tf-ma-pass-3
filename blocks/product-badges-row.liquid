@@ -1,0 +1,205 @@
+{% doc %}
+  Product Badges Row Block
+
+  Renders a horizontal row of product attribute badges (gluten-free, vegan, etc.).
+  Reads from product.metafields.custom.product_badges (list.metaobject_reference).
+  Each metaobject has fields: label (display field), icon (file_reference).
+  Falls back to hardcoded badge settings if metafield is blank.
+
+  @example {% content_for 'block', type: 'product-badges-row', id: 'product-badges' %}
+{% enddoc %}
+
+{%- liquid
+  assign product = closest.product
+  assign badges = product.metafields.custom.product_badges.value
+  assign has_metafield_badges = false
+  if badges != blank and badges.size > 0
+    assign has_metafield_badges = true
+  endif
+-%}
+
+{%- if has_metafield_badges -%}
+  <div class="product-badges-row" {{ block.shopify_attributes }}>
+    {%- for badge in badges -%}
+      <div class="product-badge-item">
+        {%- if badge.icon.value != blank -%}
+          <div class="product-badge-item__icon">
+            {{ badge.icon.value | image_url: width: 128 | image_tag: loading: 'lazy', alt: badge.label.value }}
+          </div>
+        {%- endif -%}
+        <span class="product-badge-item__label">{{ badge.label.value }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+{%- else -%}
+  {%- liquid
+    assign has_fallback = false
+    if block.settings.badge_1_text != blank or block.settings.badge_2_text != blank or block.settings.badge_3_text != blank or block.settings.badge_4_text != blank
+      assign has_fallback = true
+    endif
+  -%}
+  {%- if has_fallback -%}
+    <div class="product-badges-row" {{ block.shopify_attributes }}>
+      {%- if block.settings.badge_1_text != blank -%}
+        <div class="product-badge-item">
+          {%- if block.settings.badge_1_image -%}
+            <div class="product-badge-item__icon">
+              {{ block.settings.badge_1_image | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.badge_1_text }}
+            </div>
+          {%- endif -%}
+          <span class="product-badge-item__label">{{ block.settings.badge_1_text }}</span>
+        </div>
+      {%- endif -%}
+      {%- if block.settings.badge_2_text != blank -%}
+        <div class="product-badge-item">
+          {%- if block.settings.badge_2_image -%}
+            <div class="product-badge-item__icon">
+              {{ block.settings.badge_2_image | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.badge_2_text }}
+            </div>
+          {%- endif -%}
+          <span class="product-badge-item__label">{{ block.settings.badge_2_text }}</span>
+        </div>
+      {%- endif -%}
+      {%- if block.settings.badge_3_text != blank -%}
+        <div class="product-badge-item">
+          {%- if block.settings.badge_3_image -%}
+            <div class="product-badge-item__icon">
+              {{ block.settings.badge_3_image | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.badge_3_text }}
+            </div>
+          {%- endif -%}
+          <span class="product-badge-item__label">{{ block.settings.badge_3_text }}</span>
+        </div>
+      {%- endif -%}
+      {%- if block.settings.badge_4_text != blank -%}
+        <div class="product-badge-item">
+          {%- if block.settings.badge_4_image -%}
+            <div class="product-badge-item__icon">
+              {{ block.settings.badge_4_image | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.badge_4_text }}
+            </div>
+          {%- endif -%}
+          <span class="product-badge-item__label">{{ block.settings.badge_4_text }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+  .product-badges-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .product-badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .product-badge-item__icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-badge-item__icon img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+  }
+
+  .product-badge-item__label {
+    font-family: var(--font-body--family);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 21px;
+    text-align: center;
+    color: var(--color-foreground);
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-badges-row {
+      gap: 18px;
+    }
+
+    .product-badge-item__icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .product-badge-item__icon img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.product_badges",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Fallback badges"
+    },
+    {
+      "type": "paragraph",
+      "content": "Used when product.metafields.custom.product_badges is empty."
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_1_image",
+      "label": "Badge 1 image"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "Badge 1 label"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_2_image",
+      "label": "Badge 2 image"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "Badge 2 label"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_3_image",
+      "label": "Badge 3 image"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_text",
+      "label": "Badge 3 label"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_4_image",
+      "label": "Badge 4 image"
+    },
+    {
+      "type": "text",
+      "id": "badge_4_text",
+      "label": "Badge 4 label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_badges",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

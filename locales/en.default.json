@@ -111,6 +111,15 @@
     "sort": "Sort"
   },
   "blocks": {
+    "product_code": {
+      "prefix": "Code:"
+    },
+    "cashback_info": {
+      "label": "Cashback"
+    },
+    "curated_review": {
+      "verified_buyer": "Verified Buyer"
+    },
     "contact_form": {
       "name": "Name",
       "email": "Email",

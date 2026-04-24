@@ -1,0 +1,59 @@
+{% doc %}
+  Product Code Block
+
+  Renders 'Code: {value}'. Uses code_text setting (bindable via dynamic source)
+  or falls back to product.selected_or_first_available_variant.sku.
+
+  @example {% content_for 'block', type: 'product-code', id: 'product-code' %}
+{% enddoc %}
+
+{%- liquid
+  assign product = closest.product
+  assign code_value = block.settings.code_text
+  if code_value == blank
+    assign code_value = product.selected_or_first_available_variant.sku
+  endif
+-%}
+
+{%- if code_value != blank -%}
+  <div class="product-code" {{ block.shopify_attributes }}>
+    <span class="product-code__text">{{ 'blocks.product_code.prefix' | t }} {{ code_value }}</span>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .product-code__text {
+    font-family: var(--font-body--family);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--color-foreground);
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-code__text {
+      font-size: 12px;
+      line-height: 19px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.product_code",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "code_text",
+      "label": "Code"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_code",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
