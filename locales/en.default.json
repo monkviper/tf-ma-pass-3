@@ -349,6 +349,17 @@
     "blog_post_date": "Date",
     "blog_post_description": "An excerpt of your blog post's content"
   },
+  "blocks": {
+    "cashback_info": {
+      "label": "Cashback"
+    },
+    "product_code": {
+      "prefix": "Code:"
+    },
+    "curated_review": {
+      "verified_buyer": "Verified Buyer"
+    }
+  },
   "products": {
     "product": {
       "add_to_cart": "Add to cart",

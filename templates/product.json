@@ -308,7 +308,16 @@
             },
             "product_badges_block": {
               "type": "product-badges-row",
-              "settings": {},
+              "settings": {
+                "badge_1_svg": "gluten-free-2.svg",
+                "badge_1_text": "gluten-free",
+                "badge_2_svg": "vegan-2.svg",
+                "badge_2_text": "vegan",
+                "badge_3_svg": "non-gmo-2.svg",
+                "badge_3_text": "non-gmo",
+                "badge_4_svg": "dairy-free-2.svg",
+                "badge_4_text": "dairy-free"
+              },
               "blocks": {}
             },
             "accordion_block": {

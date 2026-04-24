@@ -42,41 +42,49 @@
     <div class="product-badges-row" {{ block.shopify_attributes }}>
       {%- if block.settings.badge_1_text != blank -%}
         <div class="product-badge-item">
-          {%- if block.settings.badge_1_image -%}
-            <div class="product-badge-item__icon">
+          <div class="product-badge-item__icon">
+            {%- if block.settings.badge_1_image -%}
               {{ block.settings.badge_1_image | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.badge_1_text }}
-            </div>
-          {%- endif -%}
+            {%- elsif block.settings.badge_1_svg != blank -%}
+              <img src="{{ block.settings.badge_1_svg | asset_url }}" alt="{{ block.settings.badge_1_text | escape }}" width="64" height="64" loading="lazy">
+            {%- endif -%}
+          </div>
           <span class="product-badge-item__label">{{ block.settings.badge_1_text }}</span>
         </div>
       {%- endif -%}
       {%- if block.settings.badge_2_text != blank -%}
         <div class="product-badge-item">
-          {%- if block.settings.badge_2_image -%}
-            <div class="product-badge-item__icon">
+          <div class="product-badge-item__icon">
+            {%- if block.settings.badge_2_image -%}
               {{ block.settings.badge_2_image | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.badge_2_text }}
-            </div>
-          {%- endif -%}
+            {%- elsif block.settings.badge_2_svg != blank -%}
+              <img src="{{ block.settings.badge_2_svg | asset_url }}" alt="{{ block.settings.badge_2_text | escape }}" width="64" height="64" loading="lazy">
+            {%- endif -%}
+          </div>
           <span class="product-badge-item__label">{{ block.settings.badge_2_text }}</span>
         </div>
       {%- endif -%}
       {%- if block.settings.badge_3_text != blank -%}
         <div class="product-badge-item">
-          {%- if block.settings.badge_3_image -%}
-            <div class="product-badge-item__icon">
+          <div class="product-badge-item__icon">
+            {%- if block.settings.badge_3_image -%}
               {{ block.settings.badge_3_image | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.badge_3_text }}
-            </div>
-          {%- endif -%}
+            {%- elsif block.settings.badge_3_svg != blank -%}
+              <img src="{{ block.settings.badge_3_svg | asset_url }}" alt="{{ block.settings.badge_3_text | escape }}" width="64" height="64" loading="lazy">
+            {%- endif -%}
+          </div>
           <span class="product-badge-item__label">{{ block.settings.badge_3_text }}</span>
         </div>
       {%- endif -%}
       {%- if block.settings.badge_4_text != blank -%}
         <div class="product-badge-item">
-          {%- if block.settings.badge_4_image -%}
-            <div class="product-badge-item__icon">
+          <div class="product-badge-item__icon">
+            {%- if block.settings.badge_4_image -%}
               {{ block.settings.badge_4_image | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.badge_4_text }}
-            </div>
-          {%- endif -%}
+            {%- elsif block.settings.badge_4_svg != blank -%}
+              <img src="{{ block.settings.badge_4_svg | asset_url }}" alt="{{ block.settings.badge_4_text | escape }}" width="64" height="64" loading="lazy">
+            {%- endif -%}
+          </div>
           <span class="product-badge-item__label">{{ block.settings.badge_4_text }}</span>
         </div>
       {%- endif -%}
@@ -161,6 +169,12 @@
     },
     {
       "type": "text",
+      "id": "badge_1_svg",
+      "label": "Badge 1 SVG filename",
+      "info": "SVG filename from assets/ (e.g. gluten-free-2.svg)"
+    },
+    {
+      "type": "text",
       "id": "badge_1_text",
       "label": "Badge 1 label"
     },
@@ -168,6 +182,12 @@
       "type": "image_picker",
       "id": "badge_2_image",
       "label": "Badge 2 image"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_svg",
+      "label": "Badge 2 SVG filename",
+      "info": "SVG filename from assets/ (e.g. vegan-2.svg)"
     },
     {
       "type": "text",
@@ -181,6 +201,12 @@
     },
     {
       "type": "text",
+      "id": "badge_3_svg",
+      "label": "Badge 3 SVG filename",
+      "info": "SVG filename from assets/ (e.g. non-gmo-2.svg)"
+    },
+    {
+      "type": "text",
       "id": "badge_3_text",
       "label": "Badge 3 label"
     },
@@ -188,6 +214,12 @@
       "type": "image_picker",
       "id": "badge_4_image",
       "label": "Badge 4 image"
+    },
+    {
+      "type": "text",
+      "id": "badge_4_svg",
+      "label": "Badge 4 SVG filename",
+      "info": "SVG filename from assets/ (e.g. dairy-free-2.svg)"
     },
     {
       "type": "text",
