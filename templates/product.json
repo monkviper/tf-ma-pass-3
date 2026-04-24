@@ -101,7 +101,7 @@
               "type": "text",
               "name": "Subtitle",
               "settings": {
-                "text": "<p>{{ closest.product.metafields.custom.subtitle.value | default: 'Promotes Healthy Collagen' }}</p>",
+                "text": "<p>Promotes Healthy Collagen</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
