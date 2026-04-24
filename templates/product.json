@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -193,7 +202,10 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["price_block", "cashback_block"]
+              "block_order": [
+                "price_block",
+                "cashback_block"
+              ]
             },
             "selling_points_block": {
               "type": "selling-points",
@@ -255,11 +267,16 @@
                 },
                 "product_code_block": {
                   "type": "product-code",
-                  "settings": {},
+                  "settings": {
+                    "code_text": ""
+                  },
                   "blocks": {}
                 }
               },
-              "block_order": ["variant_picker_block", "product_code_block"]
+              "block_order": [
+                "variant_picker_block",
+                "product_code_block"
+              ]
             },
             "buy_buttons_block": {
               "type": "buy-buttons",
@@ -341,54 +358,126 @@
                 "row_product_details": {
                   "type": "_accordion-row",
                   "settings": {
+                    "heading": "Product details",
                     "open_by_default": true,
-                    "heading": "Product details"
+                    "icon": "none",
+                    "width": 20
                   },
                   "blocks": {
                     "text_pd": {
                       "type": "text",
                       "settings": {
                         "text": "<p>{{ closest.product.description }}</p>",
-                        "width": "100%"
-                      }
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     }
                   },
-                  "block_order": ["text_pd"]
+                  "block_order": [
+                    "text_pd"
+                  ]
                 },
                 "row_how_to_use": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "How to use"
+                    "heading": "How to use",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
                   },
                   "blocks": {
                     "text_htu": {
                       "type": "text",
                       "settings": {
                         "text": "<p>Follow the recommended usage instructions on the product label.</p>",
-                        "width": "100%"
-                      }
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     }
                   },
-                  "block_order": ["text_htu"]
+                  "block_order": [
+                    "text_htu"
+                  ]
                 },
                 "row_ingredients": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Ingredients"
+                    "heading": "Ingredients",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
                   },
                   "blocks": {
                     "text_ing": {
                       "type": "text",
                       "settings": {
                         "text": "<p>See the product label for a full list of ingredients.</p>",
-                        "width": "100%"
-                      }
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
                     }
                   },
-                  "block_order": ["text_ing"]
+                  "block_order": [
+                    "text_ing"
+                  ]
                 }
               },
-              "block_order": ["row_product_details", "row_how_to_use", "row_ingredients"]
+              "block_order": [
+                "row_product_details",
+                "row_how_to_use",
+                "row_ingredients"
+              ]
             },
             "pairs_well_with": {
               "type": "product-recommendations",
@@ -440,7 +529,17 @@
                   "type": "_product-card",
                   "static": true,
                   "settings": {
-                    "product_card_gap": 4
+                    "product_card_gap": 4,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "border": "none",
+                    "border_width": 1,
+                    "border_opacity": 100,
+                    "border_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
                   },
                   "blocks": {
                     "product_card_gallery": {
@@ -455,7 +554,8 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     },
                     "product_title_pw": {
                       "type": "product-title",
@@ -478,7 +578,8 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     },
                     "price_pw": {
                       "type": "price",
@@ -499,13 +600,20 @@
                         "padding-block-end": 0,
                         "padding-inline-start": 0,
                         "padding-inline-end": 0
-                      }
+                      },
+                      "blocks": {}
                     }
                   },
-                  "block_order": ["product_card_gallery", "product_title_pw", "price_pw"]
+                  "block_order": [
+                    "product_card_gallery",
+                    "product_title_pw",
+                    "price_pw"
+                  ]
                 }
               },
-              "block_order": ["pairs_heading"]
+              "block_order": [
+                "pairs_heading"
+              ]
             },
             "curated_review_block": {
               "type": "curated-review",
@@ -537,7 +645,7 @@
         "gap": 48,
         "enable_sticky_add_to_cart": true,
         "color_scheme": "",
-        "padding-block-start": 0,
+        "padding-block-start": 64,
         "padding-block-end": 0
       }
     },
