@@ -133,15 +133,6 @@
       "placeholder": "Email address",
       "success": "Thanks for subscribing!"
     },
-    "subscription_widget": {
-      "one_time_purchase": "One-time purchase",
-      "subscribe_and_save": "Subscribe & Save",
-      "delivery_every": "Delivery every",
-      "save_discount": "Save {{ discount }}%",
-      "days": "days",
-      "most_popular": "Most popular",
-      "best_value": "Best value"
-    },
     "filter": "Filter",
     "load_video": "Load video: {{ description }}",
     "sold_out": "Sold out",
@@ -367,6 +358,15 @@
     },
     "curated_review": {
       "verified_buyer": "Verified Buyer"
+    },
+    "subscription_widget": {
+      "one_time_purchase": "One-time purchase",
+      "subscribe_and_save": "Subscribe & Save",
+      "delivery_every": "Delivery every",
+      "save_discount": "Save {{ discount }}%",
+      "days": "days",
+      "most_popular": "Most popular",
+      "best_value": "Best value"
     }
   },
   "products": {
