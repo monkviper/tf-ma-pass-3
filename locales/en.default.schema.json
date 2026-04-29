@@ -152,7 +152,8 @@
     "width_is_automatically_optimized": "Width is automatically optimized for mobile.",
     "app_required_for_ratings": "An app is required for product ratings. [Learn more](https://help.shopify.com/manual/apps)",
     "navigation": "Navigation",
-    "featured_image": "Featured image"
+    "featured_image": "Featured image",
+    "subscription": "Subscription"
   },
   "html_defaults": {
     "join_our_email_list": "<h2>Join our email list</h2>",
@@ -447,7 +448,8 @@
     "cashback_info": "Cashback info",
     "shipping_usps": "Shipping & returns",
     "product_badges": "Product badges",
-    "curated_review": "Curated review"
+    "curated_review": "Curated review",
+    "subscription_widget": "Subscription widget"
   },
   "options": {
     "above_carousel": "Above carousel",
@@ -1207,7 +1209,13 @@
     "logo_svg": "Logo asset",
     "brand_name": "Brand name",
     "description": "Description",
-    "featured_image_link": "Image link"
+    "featured_image_link": "Image link",
+    "one_time_label": "One-time label",
+    "subscribe_label": "Subscribe label",
+    "frequency_label": "Frequency label",
+    "savings_text": "Savings text",
+    "discount_percentage": "Discount percentage",
+    "frequency_options": "Frequency options"
   },
   "text_defaults": {
     "accordion_heading": "Accordion heading",

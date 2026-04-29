@@ -1,0 +1,417 @@
+{% doc %}
+  Subscription Widget Block
+
+  Renders a toggle between one-time purchase and subscription purchase modes
+  with frequency selection for the PDP buy box. Reads Shopify selling plan
+  groups from the product when available, otherwise falls back to schema
+  settings for display-only discount and frequency options.
+
+  @example {% content_for 'block', type: 'subscription-widget', id: 'subscription-widget' %}
+{% enddoc %}
+
+{%- liquid
+  assign product = closest.product
+  assign current_variant = product.selected_or_first_available_variant
+  assign current_price = current_variant.price
+  assign one_time_label = block.settings.one_time_label
+  assign subscribe_label = block.settings.subscribe_label
+  assign frequency_label = block.settings.frequency_label
+  assign savings_text = block.settings.savings_text
+  assign discount_percentage = block.settings.discount_percentage
+  assign frequency_options_raw = block.settings.frequency_options
+
+  assign has_selling_plans = false
+  assign selling_plan_group = nil
+  if product.selling_plan_groups.size > 0
+    assign has_selling_plans = true
+    assign selling_plan_group = product.selling_plan_groups.first
+  endif
+
+  assign effective_discount = discount_percentage
+  if has_selling_plans and selling_plan_group.selling_plans.size > 0
+    assign first_plan = selling_plan_group.selling_plans.first
+    if first_plan.price_adjustments.size > 0
+      assign adjustment = first_plan.price_adjustments.first
+      if adjustment.value_type == 'percentage'
+        assign effective_discount = adjustment.value
+      endif
+    endif
+  endif
+
+  assign discounted_price = current_price | times: 100 | minus: 0 | times: 1
+  assign discount_multiplier = 100 | minus: effective_discount
+  assign discounted_price = current_price | times: discount_multiplier | divided_by: 100
+-%}
+
+<subscription-widget-component
+  {{ block.shopify_attributes }}
+  class="subscription-widget"
+  data-current-price="{{ current_price }}"
+  data-discount-percent="{{ effective_discount }}"
+  data-money-format="{{ shop.money_format }}"
+>
+  <div class="subscription-widget__options">
+    {%- comment -%} One-time purchase option {%- endcomment -%}
+    <label
+      ref="oneTimeOption"
+      class="subscription-widget__option subscription-widget__option--active"
+      on:click="/handleOneTimeSelect"
+    >
+      <input
+        ref="oneTimeRadio"
+        type="radio"
+        name="purchase_type_{{ block.id }}"
+        value="one-time"
+        class="subscription-widget__radio visually-hidden"
+        checked
+      >
+      <span class="subscription-widget__option-inner">
+        <span class="subscription-widget__radio-circle">
+          <span class="subscription-widget__radio-dot"></span>
+        </span>
+        <span class="subscription-widget__option-content">
+          <span class="subscription-widget__option-label">
+            {%- if one_time_label != blank -%}
+              {{ one_time_label | escape }}
+            {%- else -%}
+              {{ 'blocks.subscription_widget.one_time_purchase' | t }}
+            {%- endif -%}
+          </span>
+          <span class="subscription-widget__option-price">{{ current_price | money }}</span>
+        </span>
+      </span>
+    </label>
+
+    {%- comment -%} Subscribe & Save option {%- endcomment -%}
+    <label
+      ref="subscribeOption"
+      class="subscription-widget__option"
+      on:click="/handleSubscribeSelect"
+    >
+      <input
+        ref="subscribeRadio"
+        type="radio"
+        name="purchase_type_{{ block.id }}"
+        value="subscribe"
+        class="subscription-widget__radio visually-hidden"
+      >
+      <span class="subscription-widget__option-inner">
+        <span class="subscription-widget__radio-circle">
+          <span class="subscription-widget__radio-dot"></span>
+        </span>
+        <span class="subscription-widget__option-content">
+          <span class="subscription-widget__option-label">
+            {%- if subscribe_label != blank -%}
+              {{ subscribe_label | escape }}
+            {%- else -%}
+              {{ 'blocks.subscription_widget.subscribe_and_save' | t }}
+            {%- endif -%}
+          </span>
+          <span class="subscription-widget__option-price-row">
+            <span class="subscription-widget__option-price" ref="subscriptionPrice">{{ discounted_price | money }}</span>
+            {%- if effective_discount > 0 -%}
+              <span class="subscription-widget__savings-badge" ref="savingsBadge">
+                {{ 'blocks.subscription_widget.save_discount' | t: discount: effective_discount }}
+              </span>
+            {%- endif -%}
+          </span>
+        </span>
+      </span>
+    </label>
+  </div>
+
+  {%- comment -%} Frequency selector — hidden until subscription is chosen {%- endcomment -%}
+  <div ref="frequencySelector" class="subscription-widget__frequency" hidden>
+    <label class="subscription-widget__frequency-label" for="frequency-select-{{ block.id }}">
+      {%- if frequency_label != blank -%}
+        {{ frequency_label | escape }}
+      {%- else -%}
+        {{ 'blocks.subscription_widget.delivery_every' | t }}
+      {%- endif -%}
+    </label>
+    <div class="subscription-widget__select-wrapper">
+      <select
+        ref="frequencySelect"
+        id="frequency-select-{{ block.id }}"
+        class="subscription-widget__select"
+        on:change="/handleFrequencyChange"
+      >
+        {%- if has_selling_plans -%}
+          {%- for plan in selling_plan_group.selling_plans -%}
+            <option value="{{ plan.id }}">
+              {{ plan.name }}
+            </option>
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign freq_items = frequency_options_raw | split: ',' -%}
+          {%- for freq in freq_items -%}
+            {%- assign freq_trimmed = freq | strip -%}
+            {%- if freq_trimmed != blank -%}
+              <option value="">{{ freq_trimmed }} {{ 'blocks.subscription_widget.days' | t }}</option>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </select>
+      <span class="subscription-widget__select-icon">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </div>
+  </div>
+</subscription-widget-component>
+
+{% stylesheet %}
+  .subscription-widget {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm, 12px);
+    width: 100%;
+  }
+
+  .subscription-widget__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs, 8px);
+  }
+
+  .subscription-widget__option {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+    background-color: var(--color-background);
+  }
+
+  .subscription-widget__option:hover {
+    border-color: var(--color-primary);
+  }
+
+  .subscription-widget__option--active {
+    border-color: var(--color-primary);
+    background-color: color-mix(in srgb, var(--color-primary) 4%, var(--color-background));
+  }
+
+  .subscription-widget__radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .subscription-widget__option-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .subscription-widget__radio-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    transition: border-color 0.15s ease;
+  }
+
+  .subscription-widget__option--active .subscription-widget__radio-circle {
+    border-color: var(--color-primary);
+  }
+
+  .subscription-widget__radio-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.15s ease;
+  }
+
+  .subscription-widget__option--active .subscription-widget__radio-dot {
+    background-color: var(--color-primary);
+  }
+
+  .subscription-widget__option-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .subscription-widget__option-label {
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: var(--color-foreground);
+  }
+
+  .subscription-widget__option-price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .subscription-widget__option-price {
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .subscription-widget__savings-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    font-family: var(--font-body--family);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    color: var(--color-primary-button-text);
+    background-color: var(--color-primary-button-background);
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .subscription-widget__frequency {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .subscription-widget__frequency[hidden] {
+    display: none;
+  }
+
+  .subscription-widget__frequency-label {
+    font-family: var(--font-body--family);
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 500;
+    color: var(--color-foreground);
+  }
+
+  .subscription-widget__select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .subscription-widget__select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 10px 36px 10px 12px;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-foreground);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+
+  .subscription-widget__select:hover,
+  .subscription-widget__select:focus-visible {
+    border-color: var(--color-primary);
+    outline: none;
+  }
+
+  .subscription-widget__select-icon {
+    position: absolute;
+    inset-inline-end: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: var(--color-foreground);
+  }
+
+  @media screen and (max-width: 749px) {
+    .subscription-widget__option {
+      padding: 10px 12px;
+    }
+
+    .subscription-widget__option-label {
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .subscription-widget__option-price {
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .subscription-widget__savings-badge {
+      font-size: 11px;
+      line-height: 14px;
+      padding: 2px 6px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.subscription_widget",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.subscription"
+    },
+    {
+      "type": "text",
+      "id": "one_time_label",
+      "label": "t:settings.one_time_label"
+    },
+    {
+      "type": "text",
+      "id": "subscribe_label",
+      "label": "t:settings.subscribe_label"
+    },
+    {
+      "type": "text",
+      "id": "frequency_label",
+      "label": "t:settings.frequency_label"
+    },
+    {
+      "type": "text",
+      "id": "savings_text",
+      "label": "t:settings.savings_text"
+    },
+    {
+      "type": "number",
+      "id": "discount_percentage",
+      "label": "t:settings.discount_percentage",
+      "default": 15
+    },
+    {
+      "type": "text",
+      "id": "frequency_options",
+      "label": "t:settings.frequency_options",
+      "default": "30, 60, 90"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.subscription_widget",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

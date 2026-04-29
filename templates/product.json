@@ -278,6 +278,14 @@
                 "variant_picker_block"
               ]
             },
+            "subscription_widget_block": {
+              "type": "subscription-widget",
+              "settings": {
+                "discount_percentage": 15,
+                "frequency_options": "30, 60, 90"
+              },
+              "blocks": {}
+            },
             "buy_buttons_block": {
               "type": "buy-buttons",
               "settings": {
@@ -628,6 +636,7 @@
             "price_cashback_group",
             "selling_points_block",
             "variant_code_group",
+            "subscription_widget_block",
             "buy_buttons_block",
             "shipping_usps_block",
             "product_badges_block",
