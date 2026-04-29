@@ -252,6 +252,13 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "product_code_block": {
+                  "type": "product-code",
+                  "settings": {
+                    "code_text": ""
+                  },
+                  "blocks": {}
+                },
                 "variant_picker_block": {
                   "type": "variant-picker",
                   "settings": {
@@ -264,18 +271,11 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
-                },
-                "product_code_block": {
-                  "type": "product-code",
-                  "settings": {
-                    "code_text": ""
-                  },
-                  "blocks": {}
                 }
               },
               "block_order": [
-                "variant_picker_block",
-                "product_code_block"
+                "product_code_block",
+                "variant_picker_block"
               ]
             },
             "buy_buttons_block": {
