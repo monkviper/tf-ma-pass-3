@@ -38,7 +38,6 @@
     endif
   endif
 
-  assign discounted_price = current_price | times: 100 | minus: 0 | times: 1
   assign discount_multiplier = 100 | minus: effective_discount
   assign discounted_price = current_price | times: discount_multiplier | divided_by: 100
 -%}
